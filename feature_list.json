@@ -1,0 +1,179 @@
+{
+  "project": "ExpertPartner",
+  "version": "1.0.0",
+  "lastUpdated": "2026-04-30",
+  "features": [
+    {
+      "id": "skill-01",
+      "title": "Angular Project Setup",
+      "description": "Initialize Angular 17+ project inside frontend/ with standalone components, strict TypeScript, path aliases, and global CSS tokens wired up.",
+      "skillFile": "skills/01-setup-angular.md",
+      "status": "pending",
+      "priority": 1,
+      "acceptanceCriteria": [
+        "ng new runs successfully inside frontend/",
+        "tsconfig.json has strict: true and path aliases (@core, @shared, @features, @layout)",
+        "src/styles.css contains all CSS custom property tokens from CLAUDE.md",
+        "src/index.html loads Inter font from Google Fonts",
+        "app.config.ts has provideRouter wired up",
+        "app.routes.ts has lazy-loaded routes for auth, admin, employee",
+        "ng serve starts without errors at localhost:4200"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "skill-02",
+      "title": "Design Tokens & Global Styles",
+      "description": "Implement full CSS custom properties, typography scale, global reset, card/button/input utility classes in styles.css.",
+      "skillFile": "skills/02-design-tokens.md",
+      "status": "pending",
+      "priority": 2,
+      "acceptanceCriteria": [
+        "All color tokens defined as CSS custom properties",
+        "All spacing tokens defined",
+        ".card, .btn-primary, .btn-secondary, .badge-pill utility classes exist",
+        "Global reset applied (box-sizing, font-family, margins)",
+        "No hardcoded color or spacing values in any component CSS"
+      ],
+      "dependencies": ["skill-01"]
+    },
+    {
+      "id": "skill-03",
+      "title": "Layout: Sidebar + Topbar + Shells",
+      "description": "Build admin-shell, employee-shell, sidebar and topbar components. Responsive collapse on mobile/tablet.",
+      "skillFile": "skills/03-layout-sidebar.md",
+      "status": "pending",
+      "priority": 3,
+      "acceptanceCriteria": [
+        "AdminShellComponent renders sidebar + topbar + router-outlet",
+        "EmployeeShellComponent renders reduced sidebar + topbar + router-outlet",
+        "SidebarComponent shows correct nav items per role",
+        "Active route highlighted with 4px emerald left bar",
+        "TopbarComponent shows search + notifications + avatar",
+        "Mobile (< 768px): sidebar collapses",
+        "Tablet (768–1279px): icon-only sidebar",
+        "Desktop (≥ 1280px): full 260px sidebar"
+      ],
+      "dependencies": ["skill-02"]
+    },
+    {
+      "id": "skill-04",
+      "title": "Auth: Login Screen + Guards",
+      "description": "Build login page with mock auth service, role-based guards, and session persistence via localStorage.",
+      "skillFile": "skills/04-auth-login.md",
+      "status": "pending",
+      "priority": 4,
+      "acceptanceCriteria": [
+        "AuthService has login(), logout(), currentUser$, isLoggedIn(), getRole()",
+        "Mock users: admin@expertpartner.com/admin123 and employee@expertpartner.com/emp123",
+        "Login form validates empty fields on submit (red border + error message)",
+        "Button shows spinner during 200ms mock auth delay",
+        "Admin login redirects to /admin/dashboard",
+        "Employee login redirects to /employee/dashboard",
+        "auth.guard.ts redirects unauthenticated users to /login",
+        "role.guard.ts redirects users to correct portal based on role",
+        "Input focus shows emerald border + 2px glow",
+        "Session persists on page refresh via localStorage"
+      ],
+      "dependencies": ["skill-03"]
+    },
+    {
+      "id": "skill-05",
+      "title": "Admin Dashboard",
+      "description": "Build admin dashboard with KPI cards, LIVE badge animation, activity monitor table, and express inbox.",
+      "skillFile": "skills/05-admin-dashboard.md",
+      "status": "pending",
+      "priority": 5,
+      "acceptanceCriteria": [
+        "KpiCardComponent is reusable with title, value, badge inputs",
+        "LIVE badge has CSS pulse animation",
+        "Quick Actions: + Add New Employee and Review Filtered Emails buttons render",
+        "ActivityMonitorComponent shows table with Employee, Action badge, Timestamp columns",
+        "Clock In badge is green, Clock Out badge is red",
+        "ExpressInboxComponent shows 4-5 mock emails with category badges",
+        "TimeAgoPipe converts dates to relative strings",
+        "TruncatePipe truncates text with ellipsis",
+        "BadgeComponent handles all badge types",
+        "/admin/dashboard renders without errors"
+      ],
+      "dependencies": ["skill-04"]
+    },
+    {
+      "id": "skill-06",
+      "title": "Employee Dashboard",
+      "description": "Build employee portal with live clock widget, weekly hours progress bar, and profile card.",
+      "skillFile": "skills/06-employee-dashboard.md",
+      "status": "pending",
+      "priority": 6,
+      "acceptanceCriteria": [
+        "ClockWidgetComponent shows live time updating every second",
+        "Status dot is grey (off duty) or green (on duty)",
+        "Clock In button changes to Clock Out on click and vice versa",
+        "WeeklyHoursComponent shows current hours / 40h target",
+        "ProgressBarComponent animates on mount",
+        "ProfileCardComponent shows avatar with initials fallback",
+        "AvatarComponent renders initials when no photo is provided",
+        "/employee/dashboard renders without errors"
+      ],
+      "dependencies": ["skill-04"]
+    },
+    {
+      "id": "skill-07",
+      "title": "Attendance Screen",
+      "description": "Build full attendance page with session KPI cards (two variants) and recent activity table.",
+      "skillFile": "skills/07-attendance.md",
+      "status": "pending",
+      "priority": 7,
+      "acceptanceCriteria": [
+        "AttendanceService has clockIn(), clockOut(), getTodayLogs(), getWeeklyHours()",
+        "Variant A (has logs today): shows two separate Clock In + Clock Out buttons",
+        "Variant B (no logs today): shows single Clock In Now CTA",
+        "Daily Summary card calculates total hours from today's logs",
+        "Weekly Balance card shows correct remaining hours",
+        "ActivityTableComponent shows Date, Clock In, Clock Out, Break, Total Hours columns",
+        "Table has no vertical borders and row hover state",
+        "/employee/attendance renders correct variant based on daily state"
+      ],
+      "dependencies": ["skill-06"]
+    },
+    {
+      "id": "skill-08",
+      "title": "Filtered Emails",
+      "description": "Build admin email inbox with category badges, star toggle, read/unread state, and multi-select toolbar.",
+      "skillFile": "skills/08-filtered-emails.md",
+      "status": "pending",
+      "priority": 8,
+      "acceptanceCriteria": [
+        "EmailService has mock emails with all 4 categories (URGENT, LEAD_GEN, FINANCE, UPDATE)",
+        "EmailService has toggleStar() and markAsRead() methods",
+        "Toolbar shows select-all checkbox and processed count",
+        "EmailRowComponent shows sender, badge, subject, truncated preview, relative time",
+        "Unread rows have white bg + bold sender; read rows are dimmed",
+        "Star icon toggles on click",
+        "Click on row marks email as read",
+        "/admin/emails renders without errors"
+      ],
+      "dependencies": ["skill-05"]
+    },
+    {
+      "id": "skill-09",
+      "title": "Team Management",
+      "description": "Build consultant database table with filters, pagination, availability/EOM badges, and conditional Import Excel button.",
+      "skillFile": "skills/09-team-management.md",
+      "status": "pending",
+      "priority": 9,
+      "acceptanceCriteria": [
+        "TeamService has 12+ mock consultants",
+        "Text search filters by name, role, and employee ID",
+        "Role dropdown and Status dropdown filter client-side",
+        "AvatarComponent shows initials with online dot overlay",
+        "Availability badge shows correct color per status",
+        "EOM Status shows correct color per state",
+        "Pagination shows 10 rows per page with correct count label",
+        "Import Excel button only shown when user has canImport permission",
+        "/admin/team renders without errors"
+      ],
+      "dependencies": ["skill-05"]
+    }
+  ]
+}
