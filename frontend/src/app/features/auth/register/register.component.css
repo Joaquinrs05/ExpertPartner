@@ -71,19 +71,10 @@
   color: var(--color-text);
 }
 
-.form-label-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.forgot-link {
-  font-size: 12px;
+.form-hint {
+  font-weight: 400;
   color: var(--color-muted);
-}
-
-.forgot-link:hover {
-  color: var(--color-text);
+  font-size: 12px;
 }
 
 .input-wrapper {

@@ -64,7 +64,8 @@
       "title": "Auth: Login Screen + Guards",
       "description": "Build login page with mock auth service, role-based guards, and session persistence via localStorage.",
       "skillFile": "skills/04-auth-login.md",
-      "status": "pending",
+      "status": "completed",
+      "completedAt": "2026-05-01",
       "priority": 4,
       "acceptanceCriteria": [
         "AuthService has login(), logout(), currentUser$, isLoggedIn(), getRole()",

@@ -17,6 +17,14 @@
 
 ## Log
 
+### [2026-05-01] Agent: implementer + reviewer | Feature: skill-04
+**Action:** Built AuthService (signals, no BehaviorSubject), authGuard, roleGuard, LoginComponent, RegisterComponent (scope extended from original — register was not in feature_list but requested by user). All criteria passed on first review.
+**Files changed:** `core/models/user.model.ts`, `core/services/auth.service.ts`, `core/guards/auth.guard.ts`, `core/guards/role.guard.ts`, `features/auth/login/*` (updated), `features/auth/register/*` (new), `features/auth/auth.routes.ts`, `app.routes.ts`
+**Outcome:** All 11 acceptance criteria passed. Reviewer approved first pass. `ng build` compiles cleanly.
+**Outcome:** `ng build --configuration development` passes with 0 errors. All guard logic, session persistence, and form validation implemented.
+
+---
+
 ### [2026-05-01] Agent: implementer + reviewer | Feature: skill-03
 **Action:** Built SidebarComponent, TopbarComponent, AdminShellComponent, EmployeeShellComponent with responsive layout. Reviewer rejected first pass (hardcoded `#ffffff` and `rgba()` color values). Fixed by adding 7 alpha tokens to `styles.css` and replacing all hardcoded values. Second review approved.
 **Files changed:** `layout/sidebar/*`, `layout/topbar/*`, `layout/admin-shell/*`, `layout/employee-shell/*`, `features/admin/*/` (placeholders), `features/employee/*/` (placeholders), `app.routes.ts`, `admin.routes.ts`, `employee.routes.ts`, `styles.css` (7 new alpha tokens: `--color-white`, `--color-white-a08/a65/a06/a50`, `--color-emerald-a12/a10`)

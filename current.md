@@ -9,3 +9,8 @@
 ## Status: IDLE
 
 No task is currently in progress.
+
+### Last completed
+**Feature ID:** skill-04
+**Feature title:** Auth: Login Screen + Guards (+ Register)
+**Completed:** 2026-05-01
