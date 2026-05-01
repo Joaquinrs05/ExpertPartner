@@ -1,0 +1,30 @@
+<div class="dashboard">
+  <h1 class="text-h1 dashboard__heading">Dashboard</h1>
+
+  <div class="dashboard__kpi-row">
+    <app-kpi-card
+      title="Total Active Employees"
+      value="128"
+      badgeType="total"
+    />
+    <app-kpi-card
+      title="Currently Working"
+      value="42 / 128 online"
+      badgeType="live"
+    />
+  </div>
+
+  <div class="dashboard__actions">
+    <button class="btn-primary" type="button">+ Add New Employee</button>
+    <button class="btn-secondary" type="button" routerLink="/admin/emails">≡ Review Filtered Emails</button>
+  </div>
+
+  <div class="dashboard__main">
+    <div class="dashboard__activity">
+      <app-activity-monitor />
+    </div>
+    <div class="dashboard__inbox">
+      <app-express-inbox />
+    </div>
+  </div>
+</div>

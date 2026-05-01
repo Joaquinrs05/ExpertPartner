@@ -1,0 +1,93 @@
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  text-align: center;
+  height: 100%;
+}
+
+.profile-label {
+  color: var(--color-muted);
+  letter-spacing: 0.08em;
+  align-self: flex-start;
+}
+
+.avatar-wrapper {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edit-btn {
+  margin-top: var(--space-xs);
+  background: transparent;
+  border: none;
+  color: var(--color-muted);
+  font-size: 12px;
+  font-family: var(--font-family);
+  cursor: pointer;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  transition: color 0.15s, background 0.15s;
+}
+
+.edit-btn:hover {
+  color: var(--color-navy);
+  background: var(--color-navy-a04);
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.profile-name {
+  color: var(--color-text);
+}
+
+.profile-role {
+  color: var(--color-muted);
+}
+
+.profile-details {
+  width: 100%;
+  list-style: none;
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.detail-key {
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+.detail-val {
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: 13px;
+  text-align: right;
+}
+
+.profile-view-btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: auto;
+  padding: 10px var(--space-md);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-family);
+  border-radius: var(--radius-md);
+}

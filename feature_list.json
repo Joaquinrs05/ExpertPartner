@@ -86,7 +86,8 @@
       "title": "Admin Dashboard",
       "description": "Build admin dashboard with KPI cards, LIVE badge animation, activity monitor table, and express inbox.",
       "skillFile": "skills/05-admin-dashboard.md",
-      "status": "pending",
+      "status": "completed",
+      "completedAt": "2026-05-01",
       "priority": 5,
       "acceptanceCriteria": [
         "KpiCardComponent is reusable with title, value, badge inputs",
@@ -107,7 +108,8 @@
       "title": "Employee Dashboard",
       "description": "Build employee portal with live clock widget, weekly hours progress bar, and profile card.",
       "skillFile": "skills/06-employee-dashboard.md",
-      "status": "pending",
+      "status": "completed",
+      "completedAt": "2026-05-01",
       "priority": 6,
       "acceptanceCriteria": [
         "ClockWidgetComponent shows live time updating every second",

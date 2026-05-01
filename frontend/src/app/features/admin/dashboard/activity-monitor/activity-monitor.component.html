@@ -1,0 +1,24 @@
+<div class="card activity-monitor">
+  <h3 class="text-h3 activity-monitor__title">Activity Monitor</h3>
+  <div class="activity-monitor__table-wrap">
+    <table class="activity-monitor__table">
+      <thead>
+        <tr>
+          <th class="text-label-sm">Employee</th>
+          <th class="text-label-sm">Action</th>
+          <th class="text-label-sm">Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (entry of activity; track entry.employee + entry.timestamp) {
+          <tr class="activity-monitor__row">
+            <td class="text-body-md">{{ entry.employee }}</td>
+            <td><app-badge [type]="entry.action" /></td>
+            <td class="text-body-md activity-monitor__time">{{ entry.timestamp | timeAgo }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <a href="#" class="activity-monitor__link text-body-md">View All Activity →</a>
+</div>

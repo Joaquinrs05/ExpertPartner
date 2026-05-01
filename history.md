@@ -17,6 +17,13 @@
 
 ## Log
 
+### [2026-05-01] Agent: implementer + reviewer | Feature: skill-05 + skill-06 (parallel)
+**Action:** Built Admin Dashboard (KpiCard, ActivityMonitor, ExpressInbox, Badge, TimeAgoPipe, TruncatePipe) and Employee Dashboard (ClockWidget, WeeklyHours, ProfileCard, Avatar, ProgressBar) in parallel. Both sets of components replace skill-03 placeholders.
+**Files changed:** `shared/pipes/time-ago.pipe.ts`, `shared/pipes/truncate.pipe.ts`, `shared/components/badge/*`, `shared/components/kpi-card/*`, `shared/components/avatar/*`, `shared/components/progress-bar/*`, `features/admin/dashboard/admin-dashboard.*`, `features/admin/dashboard/activity-monitor/*`, `features/admin/dashboard/express-inbox/*`, `features/employee/dashboard/employee-dashboard.*`, `features/employee/dashboard/clock-widget/*`, `features/employee/dashboard/weekly-hours/*`, `features/employee/dashboard/profile-card/*`, `styles.css` (6 new tokens: --color-success, --color-success-bg, --color-update, --color-update-bg, --color-row-hover, --color-navy-a04)
+**Outcome:** All 10 criteria passed (skill-05) and all 8 criteria passed (skill-06). Both reviewers approved on first pass. `ng build` compiles cleanly.
+
+---
+
 ### [2026-05-01] Agent: implementer + reviewer | Feature: skill-04
 **Action:** Built AuthService (signals, no BehaviorSubject), authGuard, roleGuard, LoginComponent, RegisterComponent (scope extended from original — register was not in feature_list but requested by user). All criteria passed on first review.
 **Files changed:** `core/models/user.model.ts`, `core/services/auth.service.ts`, `core/guards/auth.guard.ts`, `core/guards/role.guard.ts`, `features/auth/login/*` (updated), `features/auth/register/*` (new), `features/auth/auth.routes.ts`, `app.routes.ts`

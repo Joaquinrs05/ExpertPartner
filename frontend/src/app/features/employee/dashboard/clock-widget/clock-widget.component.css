@@ -1,0 +1,81 @@
+.clock-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.clock-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clock-label {
+  color: var(--color-muted);
+  letter-spacing: 0.08em;
+}
+
+.clock-date {
+  color: var(--color-muted);
+}
+
+.clock-time {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+@media (min-width: 768px) {
+  .clock-time {
+    font-size: 56px;
+  }
+}
+
+.clock-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-muted);
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.status-dot--on {
+  background: var(--color-success);
+}
+
+.status-text {
+  color: var(--color-muted);
+}
+
+.clock-btn {
+  width: 100%;
+  padding: 12px var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: opacity 0.15s, background 0.15s;
+  background: var(--color-navy);
+  color: var(--color-white);
+  border: none;
+}
+
+.clock-btn--on {
+  background: transparent;
+  color: var(--color-navy);
+  border: 1px solid var(--color-navy);
+}
+
+.clock-btn:hover {
+  opacity: 0.88;
+}

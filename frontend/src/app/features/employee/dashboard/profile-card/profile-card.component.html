@@ -1,0 +1,30 @@
+<div class="profile-card card">
+  <p class="profile-label text-label-sm">Employee Profile</p>
+
+  <div class="avatar-wrapper">
+    <app-avatar [name]="employee.name" [size]="72" />
+    <button class="edit-btn" type="button" aria-label="Edit profile photo">&#9999; Edit</button>
+  </div>
+
+  <div class="profile-info">
+    <h3 class="profile-name text-h3">{{ employee.name }}</h3>
+    <p class="profile-role text-body-md">{{ employee.role }}</p>
+  </div>
+
+  <ul class="profile-details text-body-md">
+    <li class="detail-row">
+      <span class="detail-key">Employee ID</span>
+      <span class="detail-val">{{ employee.employeeId }}</span>
+    </li>
+    <li class="detail-row">
+      <span class="detail-key">Joined</span>
+      <span class="detail-val">{{ employee.joinedDate }}</span>
+    </li>
+    <li class="detail-row">
+      <span class="detail-key">Base Office</span>
+      <span class="detail-val">{{ employee.baseOffice }}</span>
+    </li>
+  </ul>
+
+  <a href="#" class="btn-secondary profile-view-btn">View Full Profile &rarr;</a>
+</div>

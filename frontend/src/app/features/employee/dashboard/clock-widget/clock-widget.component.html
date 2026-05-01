@@ -1,0 +1,25 @@
+<div class="clock-card card">
+  <div class="clock-header">
+    <span class="clock-label text-label-sm">Time &amp; Attendance</span>
+  </div>
+
+  <p class="clock-date text-body-md">{{ currentTime() | date:'EEEE, MMMM d, yyyy' }}</p>
+
+  <p class="clock-time">{{ currentTime() | date:'HH:mm:ss' }}</p>
+
+  <div class="clock-status">
+    <span class="status-dot" [class.status-dot--on]="isOnDuty()"></span>
+    <span class="status-text text-body-md">
+      {{ isOnDuty() ? 'Currently On Duty' : 'Currently Clocked Out' }}
+    </span>
+  </div>
+
+  <button
+    class="clock-btn"
+    [class.clock-btn--on]="isOnDuty()"
+    (click)="toggleClock()"
+    type="button"
+  >
+    {{ isOnDuty() ? 'Clock Out' : '→ Clock In' }}
+  </button>
+</div>

@@ -1,0 +1,32 @@
+.weekly-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.weekly-label {
+  color: var(--color-muted);
+  letter-spacing: 0.08em;
+}
+
+.weekly-numbers {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
+
+.weekly-worked {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.weekly-target {
+  color: var(--color-muted);
+}
+
+.weekly-summary {
+  color: var(--color-muted);
+}

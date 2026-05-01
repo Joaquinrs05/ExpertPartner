@@ -1,0 +1,14 @@
+<div class="weekly-card card">
+  <p class="weekly-label text-label-sm">Weekly Hours</p>
+
+  <div class="weekly-numbers">
+    <span class="weekly-worked">{{ workedHours() }}.0h</span>
+    <span class="weekly-target text-body-md">/ {{ targetHours() }}h Target</span>
+  </div>
+
+  <app-progress-bar [value]="percentage()" />
+
+  <p class="weekly-summary text-body-md">
+    {{ percentage() }}% of weekly goal reached &middot; {{ remaining() }}h remaining
+  </p>
+</div>

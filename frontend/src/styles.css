@@ -53,6 +53,20 @@
   /* Emerald alpha variants (for tints and glows) */
   --color-emerald-a12: rgba(16, 185, 129, 0.12);
   --color-emerald-a10: rgba(16, 185, 129, 0.10);
+
+  /* Success (Clock In / Live badge) */
+  --color-success: #16a34a;
+  --color-success-bg: #dcfce7;
+
+  /* Update badge */
+  --color-update: #7c3aed;
+  --color-update-bg: #ede9fe;
+
+  /* Row hover */
+  --color-row-hover: #F1F5F9;
+
+  /* Navy subtle hover */
+  --color-navy-a04: rgba(15, 23, 42, 0.04);
 }
 
 /* ============================================================

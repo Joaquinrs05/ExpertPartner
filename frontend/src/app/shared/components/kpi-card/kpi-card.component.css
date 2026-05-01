@@ -1,0 +1,23 @@
+.kpi-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  flex: 1;
+  min-width: 0;
+}
+
+.kpi-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.kpi-card__title {
+  color: var(--color-muted);
+}
+
+.kpi-card__value {
+  color: var(--color-text);
+  word-break: break-word;
+}

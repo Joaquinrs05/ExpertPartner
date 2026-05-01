@@ -11,6 +11,6 @@
 No task is currently in progress.
 
 ### Last completed
-**Feature ID:** skill-04
-**Feature title:** Auth: Login Screen + Guards (+ Register)
+**Feature ID:** skill-05 + skill-06 (parallel)
+**Feature title:** Admin Dashboard + Employee Dashboard
 **Completed:** 2026-05-01

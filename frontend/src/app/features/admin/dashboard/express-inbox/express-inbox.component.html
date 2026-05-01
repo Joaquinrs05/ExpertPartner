@@ -1,0 +1,17 @@
+<div class="card express-inbox">
+  <h3 class="text-h3 express-inbox__title">Express Inbox</h3>
+  <ul class="express-inbox__list">
+    @for (email of emails; track email.subject) {
+      <li class="express-inbox__item">
+        <div class="express-inbox__row">
+          <span class="express-inbox__sender text-body-md">{{ email.sender }}</span>
+          <app-badge [type]="asBadgeType(email.category)" />
+          <span class="express-inbox__time text-body-md">{{ email.receivedAt | timeAgo }}</span>
+        </div>
+        <p class="express-inbox__subject text-body-md">{{ email.subject }}</p>
+        <p class="express-inbox__preview text-body-md">{{ email.preview | truncate: 60 }}</p>
+      </li>
+    }
+  </ul>
+  <a href="#" class="express-inbox__link text-body-md">Open Full Inbox ↗</a>
+</div>
