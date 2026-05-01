@@ -1,14 +1,15 @@
 {
   "project": "ExpertPartner",
   "version": "1.0.0",
-  "lastUpdated": "2026-04-30",
+  "lastUpdated": "2026-05-01",
   "features": [
     {
       "id": "skill-01",
       "title": "Angular Project Setup",
       "description": "Initialize Angular 17+ project inside frontend/ with standalone components, strict TypeScript, path aliases, and global CSS tokens wired up.",
       "skillFile": "skills/01-setup-angular.md",
-      "status": "pending",
+      "status": "completed",
+      "completedAt": "2026-05-01",
       "priority": 1,
       "acceptanceCriteria": [
         "ng new runs successfully inside frontend/",

@@ -1,0 +1,108 @@
+/* ============================================================
+   Global CSS Design Tokens — ExpertPartner
+   ============================================================ */
+
+:root {
+  /* Colors */
+  --color-navy: #0F172A;
+  --color-emerald: #10B981;
+  --color-surface: #F8FAFC;
+  --color-card: #FFFFFF;
+  --color-border: #E2E8F0;
+  --color-text: #191C1E;
+  --color-muted: #45464D;
+  --color-urgent: #EF4444;
+  --color-urgent-bg: #FEE2E2;
+  --color-lead: #3B82F6;
+  --color-lead-bg: #DBEAFE;
+  --color-finance: #6B7280;
+  --color-finance-bg: #E5E7EB;
+
+  /* Spacing (4px base grid) */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+
+  /* Layout */
+  --sidebar-width: 260px;
+  --topbar-height: 64px;
+}
+
+/* ============================================================
+   Global Reset
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+/* ============================================================
+   Utility Classes
+   ============================================================ */
+
+.card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: var(--space-lg);
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.btn-primary {
+  background: var(--color-emerald);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: var(--space-sm) var(--space-md);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-navy);
+  border: 1px solid var(--color-navy);
+  border-radius: 6px;
+  padding: var(--space-sm) var(--space-md);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.btn-secondary:hover {
+  background: rgba(15, 23, 42, 0.04);
+}
+
+.badge-pill {
+  border-radius: 9999px;
+  padding: 2px var(--space-sm);
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
