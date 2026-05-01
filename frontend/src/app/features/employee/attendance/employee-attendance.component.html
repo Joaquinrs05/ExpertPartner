@@ -11,12 +11,12 @@
 
       @if (!hasTodayLog()) {
         <!-- Variant B: first clock-in of the day -->
-        <button class="btn-primary btn-cta" (click)="onClockIn()">⊙ Clock In Now</button>
+        <button class="btn-primary btn-cta" (click)="onClockIn()" [disabled]="hasOpenSession()">⊙ Clock In Now</button>
       } @else {
         <!-- Variant A: has previous log today -->
         <div class="btn-row">
-          <button class="btn-primary" (click)="onClockIn()">Clock In</button>
-          <button class="btn-secondary" (click)="onClockOut()">Clock Out</button>
+          <button class="btn-primary" (click)="onClockIn()" [disabled]="hasOpenSession()">Clock In</button>
+          <button class="btn-secondary" (click)="onClockOut()" [disabled]="!hasOpenSession()">Clock Out</button>
         </div>
       }
     </div>

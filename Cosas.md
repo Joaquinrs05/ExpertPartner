@@ -4,14 +4,7 @@
 
 ## 🐛 Bugs / Errores conocidos
 
-- **Control horario: doble click en botones** — Se puede hacer clock-in varias veces seguidas en el mismo día sin haber hecho clock-out. El botón "Clock In" debe desactivarse si ya hay una sesión abierta (clockOut === null). El botón "Clock Out" debe desactivarse si no hay ninguna sesión abierta. Archivo: `employee-attendance.component.html` y `attendance.service.ts`.
-- **WeeklyHours no se actualiza reactivamente** — `getWeeklyHours()` devuelve un `Observable` estático con `of()`, no reacciona al `BehaviorSubject`. Cuando el usuario hace clock-out, las horas semanales no se recalculan automáticamente. Debería derivarse del propio `logs$`.
-- **`hasLoggedToday` no es reactivo** — El método lee el snapshot del BehaviorSubject en el momento puntual. Si cambia el estado desde otra pestaña o componente, la UI no se actualiza sola.
-- **`getTodayLogs()` devuelve `Observable<AttendanceLog[]>` estático** — Usa `of()` en lugar de derivarse de `logs$`, por lo que no emite nuevos valores cuando cambia el estado. Debería ser `this.logs$.pipe(map(...))`.
-- **Admin Attendance sin implementar** — La ruta `/admin/attendance` existe y está en el menú pero solo muestra "coming soon". Rompe la experiencia de navegación.
-- **Admin Settings sin implementar** — Igual que admin attendance, solo tiene un stub vacío.
-- **`filterConsultants()` en TeamService es redundante** — El componente `admin-team` ya filtra por su cuenta con `computed()`. El método `filterConsultants()` del servicio existe pero no se usa. Eliminar o centralizar.
-- **`register()` en auth.service.ts** — El método existe pero no hay ruta `/register` protegida ni flujo de UI completo. O se completa o se elimina para evitar confusión.
+> No hay bugs pendientes conocidos. Los que estaban documentados aquí han sido resueltos.
 
 ---
 
@@ -33,15 +26,10 @@
 
 ## 🏗️ Deuda técnica / Arquitectura
 
-- **Suscripciones manuales sin `takeUntilDestroyed`** — En `employee-attendance.component.ts` (líneas 68 y 73) se suscriben a Observables sin desuscribirse correctamente usando el operador `takeUntilDestroyed(this.destroyRef)`. Si el componente se destruye antes de que el Observable complete, puede haber memory leaks.
-- **`getLogsSnapshot()` rompe el patrón reactivo** — En el componente de attendance se llama a `getLogsSnapshot()` para la inicialización. Debería cargarse desde `logs$` con `toSignal()` para mantener todo reactivo.
-- **Imports con ruta relativa en AdminDashboard** — `admin-dashboard.component.ts` importa con `'../../../shared/components/kpi-card/...'` en lugar del alias `@shared/...`. Inconsistente con el resto del proyecto.
 - **Mock data mezclada con lógica de servicio** — Los arrays `MOCK_CONSULTANTS`, `MOCK_EMAILS`, etc. están definidos dentro del mismo fichero del servicio. Moverlos a `core/mock-data/` para facilitar el futuro reemplazo por llamadas HTTP.
 - **Sin interceptor HTTP implementado** — El fichero `interceptors/` existe (solo `.gitkeep`) pero el interceptor de auth no está creado. Cuando haya backend, los tokens JWT necesitarán ese interceptor.
-- **`user.model.ts` incompleto** — La interfaz `User` no tiene el campo `employeeId` definido como campo propio del modelo (solo lo tienen algunos mocks). Esto obliga a usar `?.employeeId` con opcional encadenamiento y puede causar bugs silenciosos.
-- **`Consultant.role` es `string` libre** — Debería ser un union type `'Senior Consultant' | 'Associate' | 'Manager' | 'Director'` para evitar valores inválidos y mejorar el autocompletado.
-- **`AttendanceLog.clockIn` es `Date` pero viene del mock como objeto Date** — Cuando se guarde/cargue desde backend, llegará como string ISO. Preparar deserialización.
-- **Comentarios en español en código TypeScript** — CLAUDE.md especifica que todo el código y comentarios deben estar en inglés. `auth.service.ts` línea 8 tiene un comentario en español.
+- **`user.model.ts` — `employeeId` opcional** — La interfaz `User` declara `employeeId` como opcional (`?`), lo que obliga a usar optional chaining en todo el código. Cuando haya backend, decidir si es un campo obligatorio para el rol `employee` y aplicar narrowing por rol.
+- **`AttendanceLog.clockIn` es `Date` en mock, string en backend** — Cuando se cargue desde backend llegará como string ISO. Preparar capa de deserialización en el servicio antes de integrar HTTP.
 
 ---
 

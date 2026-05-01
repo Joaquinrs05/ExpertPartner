@@ -5,7 +5,6 @@ import { User } from '@core/models/user.model';
 interface MockUser extends User {
   password: string;
 }
-//Aqui estaran momentaneamente los usuarioos hasta poner la base dde datos
 const MOCK_USERS: MockUser[] = [
   {
     id: '1',

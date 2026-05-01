@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Consultant } from '@core/models/consultant.model';
 
 const MOCK_CONSULTANTS: Consultant[] = [
@@ -29,18 +29,4 @@ export class TeamService {
     return this.consultants$;
   }
 
-  filterConsultants(query: string, role: string, status: string): Observable<Consultant[]> {
-    const q = query.toLowerCase();
-    const filtered = this._consultants.getValue().filter((c) => {
-      const matchesQuery =
-        !q ||
-        c.fullName.toLowerCase().includes(q) ||
-        c.role.toLowerCase().includes(q) ||
-        c.employeeId.toLowerCase().includes(q);
-      const matchesRole = !role || c.role === role;
-      const matchesStatus = !status || c.availability === status;
-      return matchesQuery && matchesRole && matchesStatus;
-    });
-    return of(filtered);
-  }
 }

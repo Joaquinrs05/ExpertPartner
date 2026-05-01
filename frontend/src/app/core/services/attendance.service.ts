@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AttendanceLog } from '@core/models/attendance.model';
 
 const today = new Date();
@@ -77,35 +78,41 @@ export class AttendanceService {
 
   getTodayLogs(employeeId: string): Observable<AttendanceLog[]> {
     const todayStr = toDateStr(new Date());
-    return of(this._logs.getValue().filter(
-      l => l.employeeId === employeeId && l.date === todayStr
-    ));
-  }
-
-  getWeeklyHours(employeeId: string): Observable<number> {
-    const now = new Date();
-    const startOfWeek = new Date(now);
-    startOfWeek.setDate(now.getDate() - now.getDay());
-    startOfWeek.setHours(0, 0, 0, 0);
-
-    const total = this._logs.getValue()
-      .filter(l => l.employeeId === employeeId && l.clockOut !== null)
-      .filter(l => new Date(l.clockIn) >= startOfWeek)
-      .reduce((sum, l) => {
-        const ms = l.clockOut!.getTime() - l.clockIn.getTime();
-        return sum + ms / 3600000 - l.breakMinutes / 60;
-      }, 0);
-    return of(Math.round(total * 10) / 10);
-  }
-
-  hasLoggedToday(employeeId: string): boolean {
-    const todayStr = toDateStr(new Date());
-    return this._logs.getValue().some(
-      l => l.employeeId === employeeId && l.date === todayStr
+    return this.logs$.pipe(
+      map(logs => logs.filter(l => l.employeeId === employeeId && l.date === todayStr))
     );
   }
 
-  getLogsSnapshot(): AttendanceLog[] {
-    return this._logs.getValue();
+  getWeeklyHours(employeeId: string): Observable<number> {
+    return this.logs$.pipe(
+      map(logs => {
+        const now = new Date();
+        const startOfWeek = new Date(now);
+        startOfWeek.setDate(now.getDate() - now.getDay());
+        startOfWeek.setHours(0, 0, 0, 0);
+        const total = logs
+          .filter(l => l.employeeId === employeeId && l.clockOut !== null)
+          .filter(l => new Date(l.clockIn) >= startOfWeek)
+          .reduce((sum, l) => {
+            const ms = l.clockOut!.getTime() - l.clockIn.getTime();
+            return sum + ms / 3600000 - l.breakMinutes / 60;
+          }, 0);
+        return Math.round(total * 10) / 10;
+      })
+    );
+  }
+
+  hasTodayLog$(employeeId: string): Observable<boolean> {
+    const todayStr = toDateStr(new Date());
+    return this.logs$.pipe(
+      map(logs => logs.some(l => l.employeeId === employeeId && l.date === todayStr))
+    );
+  }
+
+  hasOpenSession$(employeeId: string): Observable<boolean> {
+    const todayStr = toDateStr(new Date());
+    return this.logs$.pipe(
+      map(logs => logs.some(l => l.employeeId === employeeId && l.date === todayStr && l.clockOut === null))
+    );
   }
 }

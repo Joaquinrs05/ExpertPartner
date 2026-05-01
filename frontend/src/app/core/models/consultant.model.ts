@@ -1,8 +1,10 @@
+export type ConsultantRole = 'Senior Consultant' | 'Associate' | 'Manager' | 'Director';
+
 export interface Consultant {
   id: string;
   employeeId: string;
   fullName: string;
-  role: string;
+  role: ConsultantRole;
   level: string;
   avatarUrl: string | null;
   isOnline: boolean;

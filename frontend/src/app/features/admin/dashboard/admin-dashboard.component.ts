@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { KpiCardComponent } from '../../../shared/components/kpi-card/kpi-card.component';
+import { KpiCardComponent } from '@shared/components/kpi-card/kpi-card.component';
 import { ActivityMonitorComponent } from './activity-monitor/activity-monitor.component';
 import { ExpressInboxComponent } from './express-inbox/express-inbox.component';
 

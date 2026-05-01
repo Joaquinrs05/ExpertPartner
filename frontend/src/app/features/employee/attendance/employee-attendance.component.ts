@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { AttendanceService } from '@core/services/attendance.service';
 import { AuthService } from '@core/services/auth.service';
-import { AttendanceLog } from '@core/models/attendance.model';
 import { ProgressBarComponent } from '@shared/components/progress-bar/progress-bar.component';
 import { ActivityTableComponent } from './activity-table/activity-table.component';
 
@@ -14,19 +14,23 @@ import { ActivityTableComponent } from './activity-table/activity-table.componen
   styleUrl: './employee-attendance.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EmployeeAttendanceComponent implements OnInit {
+export class EmployeeAttendanceComponent {
   private readonly attendanceService = inject(AttendanceService);
   private readonly authService = inject(AuthService);
   private readonly destroyRef = inject(DestroyRef);
 
-  private get employeeId(): string {
-    return this.authService.currentUser()?.employeeId ?? 'EMP-001';
-  }
+  private readonly employeeId = this.authService.currentUser()?.employeeId ?? 'EMP-001';
 
   currentTime = signal(new Date());
-  hasTodayLog = signal(false);
-  allLogs = signal<AttendanceLog[]>([]);
-  weeklyWorked = signal(0);
+
+  allLogs = toSignal(this.attendanceService.logs$, { initialValue: [] });
+  hasTodayLog = toSignal(this.attendanceService.hasTodayLog$(this.employeeId), { initialValue: false });
+  weeklyWorked = toSignal(this.attendanceService.getWeeklyHours(this.employeeId), { initialValue: 0 });
+
+  hasOpenSession = computed(() => {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    return this.allLogs().some(l => l.date === todayStr && l.clockOut === null);
+  });
 
   todayHoursLabel = computed(() => {
     const todayStr = new Date().toISOString().slice(0, 10);
@@ -50,50 +54,20 @@ export class EmployeeAttendanceComponent implements OnInit {
     return Math.min(100, Math.round((totalMin / 480) * 100));
   });
 
-  weeklyRemaining = computed(() => {
-    const r = 40 - this.weeklyWorked();
-    return Math.max(0, Math.round(r * 10) / 10);
-  });
+  weeklyRemaining = computed(() => Math.max(0, Math.round((40 - this.weeklyWorked()) * 10) / 10));
 
-  weeklyProgressPct = computed(() => {
-    return Math.min(100, Math.round((this.weeklyWorked() / 40) * 100));
-  });
+  weeklyProgressPct = computed(() => Math.min(100, Math.round((this.weeklyWorked() / 40) * 100)));
 
-  ngOnInit(): void {
-    this.refreshState();
-
+  constructor() {
     const id = setInterval(() => this.currentTime.set(new Date()), 1000);
     this.destroyRef.onDestroy(() => clearInterval(id));
-
-    this.attendanceService.logs$.subscribe(logs => {
-      this.allLogs.set(logs);
-      this.hasTodayLog.set(this.attendanceService.hasLoggedToday(this.employeeId));
-    });
-
-    this.attendanceService.getWeeklyHours(this.employeeId).subscribe(h => {
-      this.weeklyWorked.set(h);
-    });
   }
 
   onClockIn(): void {
     this.attendanceService.clockIn(this.employeeId);
-    this.hasTodayLog.set(true);
-    this.refreshWeekly();
   }
 
   onClockOut(): void {
     this.attendanceService.clockOut(this.employeeId);
-    this.refreshWeekly();
-  }
-
-  private refreshState(): void {
-    this.allLogs.set(this.attendanceService.getLogsSnapshot());
-    this.hasTodayLog.set(this.attendanceService.hasLoggedToday(this.employeeId));
-  }
-
-  private refreshWeekly(): void {
-    this.attendanceService.getWeeklyHours(this.employeeId).subscribe(h => {
-      this.weeklyWorked.set(h);
-    });
   }
 }
