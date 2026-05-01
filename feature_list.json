@@ -27,7 +27,8 @@
       "title": "Design Tokens & Global Styles",
       "description": "Implement full CSS custom properties, typography scale, global reset, card/button/input utility classes in styles.css.",
       "skillFile": "skills/02-design-tokens.md",
-      "status": "pending",
+      "status": "completed",
+      "completedAt": "2026-05-01",
       "priority": 2,
       "acceptanceCriteria": [
         "All color tokens defined as CSS custom properties",

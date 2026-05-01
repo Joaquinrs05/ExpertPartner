@@ -17,6 +17,13 @@
 
 ## Log
 
+### [2026-05-01] Agent: implementer + reviewer | Feature: skill-02
+**Action:** Expanded `styles.css` with full typography scale, border-radius tokens, shadow token, font-family token, badge variants, `.input-focus`, `.badge-live` with pulse animation, and completed utility class implementations.
+**Files changed:** `frontend/src/styles.css`
+**Outcome:** All 11 acceptance criteria passed. Reviewer approved. `ng build` compiles cleanly.
+
+---
+
 ### [2026-05-01] Agent: implementer + reviewer | Feature: skill-01
 **Action:** Initialized Angular 17+ project inside `frontend/`. Configured tsconfig strict mode and path aliases, wired up CSS design tokens, loaded Inter font, set up lazy-loaded routing.
 **Files changed:** `frontend/` (ng new), `tsconfig.json`, `src/styles.css`, `src/index.html`, `app.routes.ts`, `app.config.ts`, `app.ts`, `app.html`, feature route files, login placeholder component, full folder structure under `src/app/`
