@@ -6,4 +6,6 @@
 
 ---
 
-## Status: ⬜ IDLE — No task in progress
+## Status: IDLE
+
+No task is currently in progress.

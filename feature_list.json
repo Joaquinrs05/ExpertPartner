@@ -44,7 +44,8 @@
       "title": "Layout: Sidebar + Topbar + Shells",
       "description": "Build admin-shell, employee-shell, sidebar and topbar components. Responsive collapse on mobile/tablet.",
       "skillFile": "skills/03-layout-sidebar.md",
-      "status": "pending",
+      "status": "completed",
+      "completedAt": "2026-05-01",
       "priority": 3,
       "acceptanceCriteria": [
         "AdminShellComponent renders sidebar + topbar + router-outlet",

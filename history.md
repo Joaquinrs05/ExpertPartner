@@ -17,6 +17,13 @@
 
 ## Log
 
+### [2026-05-01] Agent: implementer + reviewer | Feature: skill-03
+**Action:** Built SidebarComponent, TopbarComponent, AdminShellComponent, EmployeeShellComponent with responsive layout. Reviewer rejected first pass (hardcoded `#ffffff` and `rgba()` color values). Fixed by adding 7 alpha tokens to `styles.css` and replacing all hardcoded values. Second review approved.
+**Files changed:** `layout/sidebar/*`, `layout/topbar/*`, `layout/admin-shell/*`, `layout/employee-shell/*`, `features/admin/*/` (placeholders), `features/employee/*/` (placeholders), `app.routes.ts`, `admin.routes.ts`, `employee.routes.ts`, `styles.css` (7 new alpha tokens: `--color-white`, `--color-white-a08/a65/a06/a50`, `--color-emerald-a12/a10`)
+**Outcome:** All 11 acceptance criteria passed on second review. `ng build` compiles cleanly.
+
+---
+
 ### [2026-05-01] Agent: implementer + reviewer | Feature: skill-02
 **Action:** Expanded `styles.css` with full typography scale, border-radius tokens, shadow token, font-family token, badge variants, `.input-focus`, `.badge-live` with pulse animation, and completed utility class implementations.
 **Files changed:** `frontend/src/styles.css`

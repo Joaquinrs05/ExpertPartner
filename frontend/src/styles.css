@@ -42,6 +42,17 @@
 
   /* Typography */
   --font-family: 'Inter', sans-serif;
+
+  /* White alpha variants (for navy sidebar overlays) */
+  --color-white: #ffffff;
+  --color-white-a08: rgba(255, 255, 255, 0.08);
+  --color-white-a65: rgba(255, 255, 255, 0.65);
+  --color-white-a06: rgba(255, 255, 255, 0.06);
+  --color-white-a50: rgba(255, 255, 255, 0.50);
+
+  /* Emerald alpha variants (for tints and glows) */
+  --color-emerald-a12: rgba(16, 185, 129, 0.12);
+  --color-emerald-a10: rgba(16, 185, 129, 0.10);
 }
 
 /* ============================================================
@@ -110,7 +121,7 @@ a {
   align-items: center;
   gap: var(--space-sm);
   background: var(--color-emerald);
-  color: #ffffff;
+  color: var(--color-white);
   border: none;
   border-radius: var(--radius-md);
   padding: 10px var(--space-md);
@@ -162,7 +173,7 @@ a {
 .input-focus {
   outline: none;
   border-color: var(--color-emerald);
-  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.10);
+  box-shadow: 0 0 0 2px var(--color-emerald-a10);
 }
 
 /* ============================================================

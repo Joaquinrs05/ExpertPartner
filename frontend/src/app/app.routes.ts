@@ -8,11 +8,19 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
+    loadComponent: () =>
+      import('./layout/admin-shell/admin-shell.component').then(
+        (m) => m.AdminShellComponent
+      ),
     loadChildren: () =>
       import('./features/admin/admin.routes').then((m) => m.adminRoutes),
   },
   {
     path: 'employee',
+    loadComponent: () =>
+      import('./layout/employee-shell/employee-shell.component').then(
+        (m) => m.EmployeeShellComponent
+      ),
     loadChildren: () =>
       import('./features/employee/employee.routes').then((m) => m.employeeRoutes),
   },

@@ -1,0 +1,9 @@
+<div class="shell">
+  <app-sidebar role="employee" [isOpen]="sidebarOpen()" />
+  <div class="shell__main">
+    <app-topbar (sidebarToggle)="toggleSidebar()" userName="María García" />
+    <main class="shell__content">
+      <router-outlet />
+    </main>
+  </div>
+</div>
