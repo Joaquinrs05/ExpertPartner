@@ -1,0 +1,99 @@
+<div class="team-page">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-header__text">
+      <h1 class="text-h1">Consultant Database</h1>
+      <p class="page-subtitle">Manage assignments, availability, and end-of-month reporting.</p>
+    </div>
+    <div class="page-header__actions">
+      <button class="btn-primary">+ New Consultant</button>
+      @if (canImport()) {
+        <button class="btn-secondary">📄 Import Excel</button>
+      }
+    </div>
+  </div>
+
+  <!-- Filter Row -->
+  <div class="filter-row">
+    <div class="search-wrapper">
+      <input
+        class="search-input"
+        type="text"
+        placeholder="Search by name, role, or ID..."
+        [value]="searchQuery()"
+        (input)="onSearch($event)"
+      />
+    </div>
+    <select class="filter-select" [value]="selectedRole()" (change)="onRoleChange($event)">
+      <option value="">All Roles</option>
+      <option value="Senior Consultant">Senior Consultant</option>
+      <option value="Associate">Associate</option>
+      <option value="Manager">Manager</option>
+      <option value="Director">Director</option>
+    </select>
+    <select class="filter-select" [value]="selectedStatus()" (change)="onStatusChange($event)">
+      <option value="">All Statuses</option>
+      <option value="available">Available</option>
+      <option value="project_assigned">Project Assigned</option>
+      <option value="on_leave">On Leave</option>
+    </select>
+  </div>
+
+  <!-- Table Card -->
+  <div class="table-card">
+    <div class="table-scroll">
+      <table class="consultant-table">
+        <thead>
+          <tr>
+            <th class="th-consultant">Consultant</th>
+            <th>Role &amp; Level</th>
+            <th>Availability</th>
+            <th>EOM Status</th>
+            <th class="th-actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (consultant of paginatedConsultants(); track consultant.id) {
+            <app-consultant-row [consultant]="consultant" />
+          } @empty {
+            <tr>
+              <td class="empty-row" colspan="5">No consultants match your filters.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination Footer -->
+    <div class="pagination-footer">
+      <span class="showing-label">{{ showingLabel() }}</span>
+      <div class="pagination-controls">
+        <button
+          class="page-btn"
+          [disabled]="currentPage() === 1"
+          (click)="goToPage(currentPage() - 1)"
+          aria-label="Previous page"
+        >
+          &#8249;
+        </button>
+        @for (page of pageNumbers(); track page) {
+          <button
+            class="page-btn"
+            [class.page-btn--active]="page === currentPage()"
+            (click)="goToPage(page)"
+          >
+            {{ page }}
+          </button>
+        }
+        <button
+          class="page-btn"
+          [disabled]="currentPage() === totalPages()"
+          (click)="goToPage(currentPage() + 1)"
+          aria-label="Next page"
+        >
+          &#8250;
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

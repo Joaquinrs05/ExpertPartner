@@ -17,6 +17,13 @@
 
 ## Log
 
+### [2026-05-02] Agent: leader (direct) + implementer | Feature: skill-08 + skill-09 (parallel)
+**Action:** Built Filtered Emails (EmailService, EmailModel, EmailRowComponent, AdminEmailsComponent) and Team Management (TeamService, ConsultantModel, ConsultantRowComponent, AdminTeamComponent). Subagent implemented skill-09 fully; skill-08 implemented directly by Leader (subagent lacked Write permissions). AvatarComponent extended with `isOnline` dot overlay. BadgeComponent extended with 6 new types (availability + EOM). Amber tokens added to styles.css.
+**Files changed:** `core/models/email.model.ts`, `core/services/email.service.ts`, `features/admin/emails/admin-emails.*`, `features/admin/emails/email-row/*`, `core/models/consultant.model.ts`, `core/services/team.service.ts`, `features/admin/team/admin-team.*`, `features/admin/team/consultant-row/*`, `shared/components/avatar/*` (extended), `shared/components/badge/*` (extended), `styles.css` (--color-amber, --color-amber-bg)
+**Outcome:** All 8 criteria passed (skill-08) and all 9 criteria passed (skill-09). `ng build` compiles cleanly — 0 errors, 0 warnings.
+
+---
+
 ### [2026-05-01] Agent: leader (direct) | Feature: skill-07
 **Action:** Built AttendanceService (BehaviorSubject, clockIn/clockOut/getTodayLogs/getWeeklyHours), AttendanceLog model, ActivityTableComponent, and EmployeeAttendanceComponent (Variant A/B, 3 KPI cards). Subagent lacked Write permissions so Leader implemented directly.
 **Files changed:** `core/models/attendance.model.ts`, `core/services/attendance.service.ts`, `features/employee/attendance/employee-attendance.*`, `features/employee/attendance/activity-table/*`

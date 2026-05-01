@@ -18,6 +18,7 @@ export class AvatarComponent {
   name = input<string>('');
   photoUrl = input<string>('');
   size = input<number>(40);
+  isOnline = input<boolean>(false);
 
   initials = computed<string>(() => {
     const parts = this.name().trim().split(/\s+/);

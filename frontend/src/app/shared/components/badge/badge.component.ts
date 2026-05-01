@@ -8,7 +8,13 @@ export type BadgeType =
   | 'clock-in'
   | 'clock-out'
   | 'live'
-  | 'total';
+  | 'total'
+  | 'available'
+  | 'project-assigned'
+  | 'on-leave'
+  | 'approved'
+  | 'timesheets-pending'
+  | 'awaiting-review';
 
 @Component({
   selector: 'app-badge',
@@ -31,6 +37,12 @@ export class BadgeComponent {
       'clock-out': 'Clock Out',
       live: 'LIVE',
       total: 'TOTAL',
+      available: 'Available',
+      'project-assigned': 'Project Assigned',
+      'on-leave': 'On Leave',
+      approved: 'Approved ✓',
+      'timesheets-pending': 'Timesheets Pending',
+      'awaiting-review': 'Awaiting Review ⏳',
     };
     return labels[this.type()];
   });

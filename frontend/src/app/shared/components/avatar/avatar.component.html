@@ -1,21 +1,26 @@
-@if (photoUrl()) {
-  <img
-    [ngSrc]="photoUrl()"
-    [alt]="name()"
-    [width]="size()"
-    [height]="size()"
-    class="avatar-img"
-    [style.width.px]="size()"
-    [style.height.px]="size()"
-  />
-} @else {
-  <div
-    class="avatar-initials"
-    [style.width.px]="size()"
-    [style.height.px]="size()"
-    [style.font-size.px]="size() * 0.38"
-    [attr.aria-label]="name()"
-  >
-    {{ initials() }}
-  </div>
-}
+<div class="avatar-wrapper" [style.width.px]="size()" [style.height.px]="size()">
+  @if (photoUrl()) {
+    <img
+      [ngSrc]="photoUrl()"
+      [alt]="name()"
+      [width]="size()"
+      [height]="size()"
+      class="avatar-img"
+      [style.width.px]="size()"
+      [style.height.px]="size()"
+    />
+  } @else {
+    <div
+      class="avatar-initials"
+      [style.width.px]="size()"
+      [style.height.px]="size()"
+      [style.font-size.px]="size() * 0.38"
+      [attr.aria-label]="name()"
+    >
+      {{ initials() }}
+    </div>
+  }
+  @if (isOnline()) {
+    <span class="online-dot"></span>
+  }
+</div>

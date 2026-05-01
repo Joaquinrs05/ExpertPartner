@@ -3,6 +3,12 @@
   flex-shrink: 0;
 }
 
+.avatar-wrapper {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
 .avatar-img {
   border-radius: 50%;
   object-fit: cover;
@@ -18,4 +24,17 @@
   font-weight: 600;
   font-family: var(--font-family);
   user-select: none;
+  width: 100%;
+  height: 100%;
+}
+
+.online-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-success);
+  border: 2px solid var(--color-card);
+  bottom: 0;
+  right: 0;
 }

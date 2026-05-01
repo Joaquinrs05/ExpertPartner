@@ -1,0 +1,31 @@
+<div class="emails-page">
+  <h2 class="page-title">Filtered Emails</h2>
+
+  <div class="card">
+    <div class="toolbar">
+      <label class="select-all">
+        <input
+          type="checkbox"
+          [checked]="allSelected()"
+          (change)="toggleSelectAll()"
+        />
+        <span>Select all</span>
+      </label>
+      <span class="processed-count">{{ processedCount() }} Processed</span>
+    </div>
+
+    <div class="email-list">
+      @for (email of emails(); track email.id) {
+        <app-email-row
+          [email]="email"
+          (starToggled)="onStarToggle($event)"
+          (rowClicked)="onRowClick($event)"
+          (checkboxChanged)="toggleSelect($event)"
+        ></app-email-row>
+      }
+      @if (emails().length === 0) {
+        <p class="empty">No emails found.</p>
+      }
+    </div>
+  </div>
+</div>

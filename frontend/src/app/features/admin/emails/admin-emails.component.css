@@ -1,0 +1,52 @@
+.emails-page {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.select-all {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.select-all input {
+  cursor: pointer;
+  accent-color: var(--color-emerald);
+}
+
+.processed-count {
+  font-size: 13px;
+  color: var(--color-muted);
+  margin-left: auto;
+}
+
+.email-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.empty {
+  padding: var(--space-xl);
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 14px;
+}

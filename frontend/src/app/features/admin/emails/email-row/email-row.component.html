@@ -1,0 +1,27 @@
+<div class="email-row" [class.email-row--unread]="!email().isRead" (click)="rowClicked.emit(email().id)">
+  <input
+    type="checkbox"
+    class="email-checkbox"
+    (change)="checkboxChanged.emit(email().id)"
+    (click)="$event.stopPropagation()"
+  />
+
+  <button
+    class="star-btn"
+    [class.star-btn--active]="email().isStarred"
+    (click)="starToggled.emit(email().id); $event.stopPropagation()"
+    aria-label="Toggle star"
+  >{{ email().isStarred ? '★' : '☆' }}</button>
+
+  <span class="sender" [class.sender--unread]="!email().isRead">{{ email().senderName }}</span>
+
+  <span class="badge-wrap">
+    <app-badge [type]="badgeType()"></app-badge>
+  </span>
+
+  <span class="subject">{{ email().subject }}</span>
+
+  <span class="preview">{{ email().preview | truncate:80 }}</span>
+
+  <span class="time">{{ email().receivedAt | timeAgo }}</span>
+</div>

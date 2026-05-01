@@ -49,3 +49,33 @@
   background: var(--color-finance-bg);
   color: var(--color-finance);
 }
+
+.badge--available {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.badge--project-assigned {
+  background: var(--color-lead-bg);
+  color: var(--color-lead);
+}
+
+.badge--on-leave {
+  background: var(--color-finance-bg);
+  color: var(--color-finance);
+}
+
+.badge--approved {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.badge--timesheets-pending {
+  background: var(--color-amber-bg);
+  color: var(--color-amber);
+}
+
+.badge--awaiting-review {
+  background: var(--color-finance-bg);
+  color: var(--color-finance);
+}

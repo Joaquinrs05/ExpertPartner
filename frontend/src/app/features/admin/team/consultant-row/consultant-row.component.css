@@ -1,0 +1,85 @@
+:host {
+  display: table-row;
+}
+
+.consultant-row td {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.consultant-row:hover td {
+  background: var(--color-row-hover);
+}
+
+.consultant-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.consultant-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.consultant-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.consultant-id {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-muted);
+  margin-top: 2px;
+}
+
+.role-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.role-title {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text);
+}
+
+.role-level {
+  font-size: 12px;
+  color: var(--color-muted);
+  margin-top: 2px;
+}
+
+.col-actions {
+  text-align: right;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-xs);
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-muted);
+  transition: background 0.15s, color 0.15s;
+}
+
+.action-btn:hover {
+  background: var(--color-border);
+  color: var(--color-text);
+}

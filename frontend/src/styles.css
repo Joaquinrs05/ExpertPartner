@@ -67,6 +67,10 @@
 
   /* Navy subtle hover */
   --color-navy-a04: rgba(15, 23, 42, 0.04);
+
+  /* Amber (timesheets-pending badge) */
+  --color-amber: #d97706;
+  --color-amber-bg: #fef3c7;
 }
 
 /* ============================================================

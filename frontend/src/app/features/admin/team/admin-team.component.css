@@ -1,0 +1,220 @@
+.team-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+}
+
+@media (min-width: 1280px) {
+  .team-page {
+    padding: var(--space-xl);
+  }
+}
+
+/* Page Header */
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .page-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: var(--color-muted);
+  margin-top: var(--space-xs);
+}
+
+.page-header__actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+/* Filter Row */
+.filter-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .filter-row {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.search-wrapper {
+  flex: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-family: var(--font-family);
+  color: var(--color-text);
+  background: var(--color-card);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.search-input:focus {
+  border-color: var(--color-emerald);
+  box-shadow: 0 0 0 2px var(--color-emerald-a10);
+}
+
+.search-input::placeholder {
+  color: var(--color-muted);
+}
+
+.filter-select {
+  padding: 8px var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-family: var(--font-family);
+  color: var(--color-text);
+  background: var(--color-card);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.filter-select:focus {
+  border-color: var(--color-emerald);
+  box-shadow: 0 0 0 2px var(--color-emerald-a10);
+}
+
+/* Table Card */
+.table-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.consultant-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+.consultant-table thead {
+  background: var(--color-surface);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.consultant-table th {
+  padding: var(--space-sm) var(--space-md);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.th-consultant {
+  width: 30%;
+}
+
+.th-actions {
+  text-align: right;
+}
+
+.empty-row {
+  padding: var(--space-xl) var(--space-md);
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+/* Pagination Footer */
+.pagination-footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+@media (min-width: 768px) {
+  .pagination-footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.showing-label {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.pagination-controls {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.page-btn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-card);
+  color: var(--color-text);
+  font-size: 14px;
+  font-family: var(--font-family);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.page-btn:hover:not(:disabled) {
+  background: var(--color-row-hover);
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page-btn--active {
+  background: var(--color-emerald);
+  color: var(--color-white);
+  border-color: var(--color-emerald);
+}
+
+.page-btn--active:hover {
+  background: var(--color-emerald);
+  opacity: 0.9;
+}

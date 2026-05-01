@@ -148,7 +148,8 @@
       "title": "Filtered Emails",
       "description": "Build admin email inbox with category badges, star toggle, read/unread state, and multi-select toolbar.",
       "skillFile": "skills/08-filtered-emails.md",
-      "status": "pending",
+      "status": "completed",
+      "completedAt": "2026-05-02",
       "priority": 8,
       "acceptanceCriteria": [
         "EmailService has mock emails with all 4 categories (URGENT, LEAD_GEN, FINANCE, UPDATE)",
@@ -167,7 +168,8 @@
       "title": "Team Management",
       "description": "Build consultant database table with filters, pagination, availability/EOM badges, and conditional Import Excel button.",
       "skillFile": "skills/09-team-management.md",
-      "status": "pending",
+      "status": "completed",
+      "completedAt": "2026-05-02",
       "priority": 9,
       "acceptanceCriteria": [
         "TeamService has 12+ mock consultants",
