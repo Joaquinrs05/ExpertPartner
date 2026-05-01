@@ -17,6 +17,13 @@
 
 ## Log
 
+### [2026-05-01] Agent: leader (direct) | Feature: skill-07
+**Action:** Built AttendanceService (BehaviorSubject, clockIn/clockOut/getTodayLogs/getWeeklyHours), AttendanceLog model, ActivityTableComponent, and EmployeeAttendanceComponent (Variant A/B, 3 KPI cards). Subagent lacked Write permissions so Leader implemented directly.
+**Files changed:** `core/models/attendance.model.ts`, `core/services/attendance.service.ts`, `features/employee/attendance/employee-attendance.*`, `features/employee/attendance/activity-table/*`
+**Outcome:** All 8 acceptance criteria passed. `ng build` compiles cleanly (0 errors, 0 warnings).
+
+---
+
 ### [2026-05-01] Agent: implementer + reviewer | Feature: skill-05 + skill-06 (parallel)
 **Action:** Built Admin Dashboard (KpiCard, ActivityMonitor, ExpressInbox, Badge, TimeAgoPipe, TruncatePipe) and Employee Dashboard (ClockWidget, WeeklyHours, ProfileCard, Avatar, ProgressBar) in parallel. Both sets of components replace skill-03 placeholders.
 **Files changed:** `shared/pipes/time-ago.pipe.ts`, `shared/pipes/truncate.pipe.ts`, `shared/components/badge/*`, `shared/components/kpi-card/*`, `shared/components/avatar/*`, `shared/components/progress-bar/*`, `features/admin/dashboard/admin-dashboard.*`, `features/admin/dashboard/activity-monitor/*`, `features/admin/dashboard/express-inbox/*`, `features/employee/dashboard/employee-dashboard.*`, `features/employee/dashboard/clock-widget/*`, `features/employee/dashboard/weekly-hours/*`, `features/employee/dashboard/profile-card/*`, `styles.css` (6 new tokens: --color-success, --color-success-bg, --color-update, --color-update-bg, --color-row-hover, --color-navy-a04)

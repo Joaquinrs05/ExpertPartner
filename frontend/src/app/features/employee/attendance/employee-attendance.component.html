@@ -1,0 +1,48 @@
+<div class="attendance-page">
+
+  <!-- KPI Cards Row -->
+  <div class="kpi-row">
+
+    <!-- Card 1: Current Session -->
+    <div class="card session-card">
+      <p class="card-label">Current Session</p>
+      <p class="time-display">{{ currentTime() | date:'HH:mm:ss' }}</p>
+      <p class="date-sub">{{ currentTime() | date:'EEEE, MMMM d' }}</p>
+
+      @if (!hasTodayLog()) {
+        <!-- Variant B: first clock-in of the day -->
+        <button class="btn-primary btn-cta" (click)="onClockIn()">⊙ Clock In Now</button>
+      } @else {
+        <!-- Variant A: has previous log today -->
+        <div class="btn-row">
+          <button class="btn-primary" (click)="onClockIn()">Clock In</button>
+          <button class="btn-secondary" (click)="onClockOut()">Clock Out</button>
+        </div>
+      }
+    </div>
+
+    <!-- Card 2: Daily Summary -->
+    <div class="card summary-card">
+      <p class="card-label">Daily Summary</p>
+      <p class="hours-display">{{ todayHoursLabel() }}</p>
+      <p class="hours-target">/ 8h targeted</p>
+      <app-progress-bar [value]="todayProgressPct()"></app-progress-bar>
+    </div>
+
+    <!-- Card 3: Weekly Balance -->
+    <div class="card weekly-card">
+      <p class="card-label">Weekly Balance</p>
+      <p class="hours-display">{{ weeklyRemaining() }}h remaining</p>
+      <p class="hours-sub">{{ weeklyWorked() }}h worked this week</p>
+      <app-progress-bar [value]="weeklyProgressPct()"></app-progress-bar>
+    </div>
+
+  </div>
+
+  <!-- Recent Activity Table -->
+  <div class="card table-card">
+    <h3 class="section-title">Recent Activity</h3>
+    <app-activity-table [logs]="allLogs()"></app-activity-table>
+  </div>
+
+</div>

@@ -1,0 +1,29 @@
+<div class="table-wrapper">
+  <table class="activity-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Clock In</th>
+        <th>Clock Out</th>
+        <th>Break</th>
+        <th>Total Hours</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (log of logs(); track log.id) {
+        <tr>
+          <td>{{ log.clockIn | date:'EEE, MMM d' }}</td>
+          <td>{{ log.clockIn | date:'h:mm a' }}</td>
+          <td>{{ log.clockOut ? (log.clockOut | date:'h:mm a') : '—' }}</td>
+          <td>{{ log.breakMinutes > 0 ? log.breakMinutes + ' min' : '—' }}</td>
+          <td>{{ totalHours(log) }}</td>
+        </tr>
+      }
+      @if (logs().length === 0) {
+        <tr>
+          <td colspan="5" class="empty-row">No activity recorded yet.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

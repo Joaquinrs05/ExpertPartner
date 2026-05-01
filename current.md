@@ -11,6 +11,6 @@
 No task is currently in progress.
 
 ### Last completed
-**Feature ID:** skill-05 + skill-06 (parallel)
-**Feature title:** Admin Dashboard + Employee Dashboard
+**Feature ID:** skill-07
+**Feature title:** Attendance Screen
 **Completed:** 2026-05-01

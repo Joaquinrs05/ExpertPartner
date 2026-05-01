@@ -128,7 +128,8 @@
       "title": "Attendance Screen",
       "description": "Build full attendance page with session KPI cards (two variants) and recent activity table.",
       "skillFile": "skills/07-attendance.md",
-      "status": "pending",
+      "status": "completed",
+      "completedAt": "2026-05-01",
       "priority": 7,
       "acceptanceCriteria": [
         "AttendanceService has clockIn(), clockOut(), getTodayLogs(), getWeeklyHours()",

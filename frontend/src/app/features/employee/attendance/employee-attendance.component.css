@@ -1,0 +1,92 @@
+.attendance-page {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* KPI row: single column on mobile */
+.kpi-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .kpi-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Session card specifics */
+.session-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.card-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  letter-spacing: 0.05em;
+}
+
+.time-display {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.1;
+}
+
+.date-sub {
+  font-size: 14px;
+  color: var(--color-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.btn-cta {
+  width: 100%;
+  padding: var(--space-md);
+  font-size: 16px;
+  margin-top: var(--space-sm);
+}
+
+.btn-row {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.btn-row .btn-primary,
+.btn-row .btn-secondary {
+  flex: 1;
+}
+
+/* Hours display */
+.hours-display {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-top: var(--space-sm);
+}
+
+.hours-target,
+.hours-sub {
+  font-size: 14px;
+  color: var(--color-muted);
+  margin-bottom: var(--space-sm);
+}
+
+/* Table card */
+.table-card {
+  padding: var(--space-lg);
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-md);
+}
