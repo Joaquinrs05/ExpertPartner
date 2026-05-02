@@ -1,0 +1,131 @@
+<div class="imports-page">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="text-h1">Importaciones Excel</h1>
+      <p class="page-subtitle">Los archivos procesados por n8n aparecen aquí automáticamente.</p>
+    </div>
+    <label class="btn-primary upload-label">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <polyline points="17,8 12,3 7,8" />
+        <line x1="12" y1="3" x2="12" y2="15" />
+      </svg>
+      Subir Excel
+      <input type="file" accept=".xlsx,.xls" class="file-input" (change)="onUpload($event)" />
+    </label>
+  </div>
+
+  <!-- Toast -->
+  @if (uploadToast()) {
+    <div class="toast toast--info" role="status">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
+      </svg>
+      {{ uploadToast() }}
+    </div>
+  }
+
+  <!-- Files list -->
+  <div class="files-list card">
+
+    @if (files().length === 0) {
+      <div class="empty-state">
+        <p>No hay archivos recibidos todavía.</p>
+      </div>
+    }
+
+    @for (file of files(); track file.id) {
+      <!-- File row -->
+      <div class="file-row" [class.file-row--expanded]="expandedId() === file.id">
+        <div class="file-info">
+          <div class="file-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14,2 14,8 20,8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+            </svg>
+          </div>
+          <div class="file-meta">
+            <p class="file-name">{{ file.fileName }}</p>
+            <p class="file-dates text-body-md">
+              Subido {{ file.uploadedAt | date:'d MMM yyyy, HH:mm' }}
+              @if (file.processedAt) {
+                · Procesado {{ file.processedAt | date:'HH:mm' }}
+              }
+            </p>
+          </div>
+        </div>
+
+        <div class="file-tags">
+          @if (file.month !== 'Pendiente') {
+            <span class="tag tag--month">{{ file.month }} {{ file.year }}</span>
+          }
+          @if (file.workerCount > 0) {
+            <span class="tag tag--workers">{{ file.workerCount }} trabajadores</span>
+          }
+        </div>
+
+        <div class="file-status">
+          <span class="status-badge" [class]="'status-badge--' + file.status">
+            @if (file.status === 'processing') {
+              <span class="spinner"></span>
+            }
+            {{ statusLabel(file) }}
+          </span>
+        </div>
+
+        <div class="file-actions">
+          @if (file.status === 'ready') {
+            <button class="action-btn" type="button" (click)="togglePreview(file.id)">
+              {{ expandedId() === file.id ? 'Ocultar' : 'Previsualizar' }}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                @if (expandedId() === file.id) {
+                  <polyline points="18,15 12,9 6,15" />
+                } @else {
+                  <polyline points="6,9 12,15 18,9" />
+                }
+              </svg>
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Preview panel -->
+      @if (expandedId() === file.id && file.status === 'ready') {
+        <div class="preview-panel">
+          <div class="preview-scroll">
+            <table class="preview-table">
+              <thead>
+                <tr>
+                  <th class="th-sticky">TRABAJADOR</th>
+                  <th>MES</th>
+                  @for (col of file.columns; track col) {
+                    <th>{{ col }}</th>
+                  }
+                </tr>
+              </thead>
+              <tbody>
+                @for (row of file.previewRows; track row.trabajador) {
+                  <tr>
+                    <td class="td-sticky td-name">{{ row.trabajador }}</td>
+                    <td>{{ row.mes }}</td>
+                    @for (col of file.columns; track col) {
+                      <td class="td-value" [class.td-zero]="row.values[col] === '0%'">
+                        {{ row.values[col] }}
+                      </td>
+                    }
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          <p class="preview-note">Mostrando {{ file.previewRows.length }} de {{ file.workerCount }} trabajadores.</p>
+        </div>
+      }
+    }
+
+  </div>
+</div>

@@ -26,7 +26,7 @@ export class RegisterComponent {
   confirmError = signal(false);
   authError = signal('');
 
-  submit(): void {
+  async submit(): Promise<void> {
     this.nameError.set(!this.name().trim());
     this.emailError.set(!this.email().trim());
     this.passwordError.set(this.password().length < 6);
@@ -36,14 +36,13 @@ export class RegisterComponent {
     this.loading.set(true);
     this.authError.set('');
 
-    setTimeout(() => {
-      const ok = this.auth.register(this.name(), this.email(), this.password());
-      this.loading.set(false);
-      if (ok) {
-        this.router.navigate(['/employee/dashboard']);
-      } else {
-        this.authError.set('An account with this email already exists.');
-      }
-    }, 200);
+    const ok = await this.auth.register(this.name(), this.email(), this.password());
+    this.loading.set(false);
+
+    if (ok) {
+      this.router.navigate(['/employee/dashboard']);
+    } else {
+      this.authError.set('No se pudo crear la cuenta. El email puede que ya esté en uso.');
+    }
   }
 }

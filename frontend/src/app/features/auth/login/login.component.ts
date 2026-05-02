@@ -22,7 +22,7 @@ export class LoginComponent {
   passwordError = signal(false);
   authError = signal('');
 
-  submit(): void {
+  async submit(): Promise<void> {
     this.emailError.set(!this.email().trim());
     this.passwordError.set(!this.password().trim());
     if (this.emailError() || this.passwordError()) return;
@@ -30,15 +30,14 @@ export class LoginComponent {
     this.loading.set(true);
     this.authError.set('');
 
-    setTimeout(() => {
-      const ok = this.auth.login(this.email(), this.password());
-      this.loading.set(false);
-      if (ok) {
-        const role = this.auth.role();
-        this.router.navigate([role === 'admin' ? '/admin/dashboard' : '/employee/dashboard']);
-      } else {
-        this.authError.set('Invalid email or password.');
-      }
-    }, 200);
+    const ok = await this.auth.login(this.email(), this.password());
+    this.loading.set(false);
+
+    if (ok) {
+      const role = this.auth.role();
+      this.router.navigate([role === 'admin' ? '/admin/dashboard' : '/employee/dashboard']);
+    } else {
+      this.authError.set('Email o contraseña incorrectos.');
+    }
   }
 }
