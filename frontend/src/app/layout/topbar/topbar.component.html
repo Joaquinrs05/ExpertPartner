@@ -13,11 +13,7 @@
   </button>
 
   <div class="topbar__search">
-    <input
-      type="search"
-      placeholder="Search..."
-      aria-label="Search"
-    />
+    <input type="search" placeholder="Search..." aria-label="Search" />
   </div>
 
   <div class="topbar__actions">
@@ -28,8 +24,40 @@
       </svg>
     </button>
 
-    <div class="topbar__avatar" role="img" [attr.aria-label]="userName() + ' profile'">
-      {{ initials() }}
+    <!-- Avatar + dropdown -->
+    <div class="avatar-menu">
+      <button
+        class="topbar__avatar"
+        type="button"
+        [attr.aria-label]="user()?.name + ' menu'"
+        [attr.aria-expanded]="menuOpen()"
+        (click)="toggleMenu()"
+      >
+        {{ initials() }}
+      </button>
+
+      @if (menuOpen()) {
+        <div class="avatar-backdrop" (click)="closeMenu()"></div>
+        <div class="dropdown" role="menu">
+          @if (role() === 'employee') {
+            <a class="dropdown__item" routerLink="/employee/profile" (click)="closeMenu()" role="menuitem">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2" />
+              </svg>
+              Profile
+            </a>
+          }
+          <button class="dropdown__item dropdown__item--danger" type="button" (click)="logout()" role="menuitem">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16,17 21,12 16,7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            Cerrar sesión
+          </button>
+        </div>
+      }
     </div>
   </div>
 </header>

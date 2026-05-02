@@ -16,6 +16,13 @@ export const employeeRoutes: Routes = [
       ),
   },
   {
+    path: 'profile',
+    loadComponent: () =>
+      import('./profile/employee-profile.component').then(
+        (m) => m.EmployeeProfileComponent
+      ),
+  },
+  {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',

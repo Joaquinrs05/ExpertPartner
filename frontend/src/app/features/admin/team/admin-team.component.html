@@ -1,4 +1,15 @@
 <div class="team-page">
+
+  <!-- Import toast -->
+  @if (importToast()) {
+    <div class="import-toast" role="status">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="20,6 9,17 4,12" />
+      </svg>
+      {{ importToast() }}
+    </div>
+  }
+
   <!-- Page Header -->
   <div class="page-header">
     <div class="page-header__text">
@@ -6,9 +17,17 @@
       <p class="page-subtitle">Manage assignments, availability, and end-of-month reporting.</p>
     </div>
     <div class="page-header__actions">
-      <button class="btn-primary">+ New Consultant</button>
+      <button class="btn-primary" type="button" (click)="openModal()">+ New Consultant</button>
       @if (canImport()) {
-        <button class="btn-secondary">📄 Import Excel</button>
+        <label class="btn-secondary import-label">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="17,8 12,3 7,8" />
+            <line x1="12" y1="3" x2="12" y2="15" />
+          </svg>
+          Import Excel
+          <input type="file" accept=".xlsx,.xls" class="file-input" (change)="onImportExcel($event)" />
+        </label>
       }
     </div>
   </div>
@@ -68,32 +87,112 @@
     <div class="pagination-footer">
       <span class="showing-label">{{ showingLabel() }}</span>
       <div class="pagination-controls">
-        <button
-          class="page-btn"
-          [disabled]="currentPage() === 1"
-          (click)="goToPage(currentPage() - 1)"
-          aria-label="Previous page"
-        >
-          &#8249;
-        </button>
+        <button class="page-btn" [disabled]="currentPage() === 1" (click)="goToPage(currentPage() - 1)" aria-label="Previous page">&#8249;</button>
         @for (page of pageNumbers(); track page) {
-          <button
-            class="page-btn"
-            [class.page-btn--active]="page === currentPage()"
-            (click)="goToPage(page)"
-          >
-            {{ page }}
-          </button>
+          <button class="page-btn" [class.page-btn--active]="page === currentPage()" (click)="goToPage(page)">{{ page }}</button>
         }
-        <button
-          class="page-btn"
-          [disabled]="currentPage() === totalPages()"
-          (click)="goToPage(currentPage() + 1)"
-          aria-label="Next page"
-        >
-          &#8250;
-        </button>
+        <button class="page-btn" [disabled]="currentPage() === totalPages()" (click)="goToPage(currentPage() + 1)" aria-label="Next page">&#8250;</button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- New Consultant Modal -->
+@if (showModal()) {
+  <div class="modal-backdrop" (click)="closeModal()"></div>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modal-title">New Consultant</h2>
+      <button class="modal-close" type="button" aria-label="Close" (click)="closeModal()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      @if (formError()) {
+        <p class="form-error" role="alert">{{ formError() }}</p>
+      }
+
+      <div class="form-grid">
+        <div class="form-field form-field--full">
+          <label class="field-label" for="f-name">Full Name <span class="required">*</span></label>
+          <input id="f-name" class="field-input" type="text" placeholder="e.g. María García"
+            [value]="form().fullName"
+            (input)="updateField('fullName', $any($event.target).value)" />
+        </div>
+
+        <div class="form-field">
+          <label class="field-label" for="f-eid">Employee ID <span class="required">*</span></label>
+          <input id="f-eid" class="field-input" type="text" placeholder="e.g. CNS-016"
+            [value]="form().employeeId"
+            (input)="updateField('employeeId', $any($event.target).value)" />
+        </div>
+
+        <div class="form-field">
+          <label class="field-label" for="f-role">Role <span class="required">*</span></label>
+          <select id="f-role" class="field-input"
+            [value]="form().role"
+            (change)="updateField('role', $any($event.target).value)">
+            <option value="">Select role</option>
+            <option value="Senior Consultant">Senior Consultant</option>
+            <option value="Associate">Associate</option>
+            <option value="Manager">Manager</option>
+            <option value="Director">Director</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label class="field-label" for="f-level">Level <span class="required">*</span></label>
+          <select id="f-level" class="field-input"
+            [value]="form().level"
+            (change)="updateField('level', $any($event.target).value)">
+            <option value="">Select level</option>
+            <option value="L1 - Junior">L1 - Junior</option>
+            <option value="L2 - Mid">L2 - Mid</option>
+            <option value="L3 - Senior">L3 - Senior</option>
+            <option value="L4 - Lead">L4 - Lead</option>
+            <option value="L5 - Enterprise">L5 - Enterprise</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label class="field-label" for="f-avail">Availability <span class="required">*</span></label>
+          <select id="f-avail" class="field-input"
+            [value]="form().availability"
+            (change)="updateField('availability', $any($event.target).value)">
+            <option value="">Select status</option>
+            <option value="available">Available</option>
+            <option value="project_assigned">Project Assigned</option>
+            <option value="on_leave">On Leave</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label class="field-label" for="f-eom">EOM Status <span class="required">*</span></label>
+          <select id="f-eom" class="field-input"
+            [value]="form().eomStatus"
+            (change)="updateField('eomStatus', $any($event.target).value)">
+            <option value="">Select EOM status</option>
+            <option value="approved">Approved</option>
+            <option value="timesheets_pending">Timesheets Pending</option>
+            <option value="awaiting_review">Awaiting Review</option>
+          </select>
+        </div>
+
+        <div class="form-field form-field--full">
+          <label class="field-label" for="f-project">Current Project <span class="optional">(optional)</span></label>
+          <input id="f-project" class="field-input" type="text" placeholder="e.g. Acme Corp"
+            [value]="form().currentProject"
+            (input)="updateField('currentProject', $any($event.target).value)" />
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" type="button" (click)="closeModal()">Cancel</button>
+      <button class="btn-primary" type="button" (click)="submitForm()">Add Consultant</button>
+    </div>
+  </div>
+}

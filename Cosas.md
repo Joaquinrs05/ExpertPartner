@@ -11,7 +11,6 @@
 ## ⚠️ UX / Funcionalidad a mejorar
 
 - **Recordatorio reconocimiento médico** — 40 días antes de la fecha de caducidad del reconocimiento médico de un empleado, debe enviarse un correo de recordatorio automático para que pase el reconocimiento de nuevo.
-- **Control horario: bloqueo de botones** — En la pantalla de asistencia del empleado, el botón "Clock In" debe quedar deshabilitado si ya hay una jornada abierta (sesión sin clock-out), y el botón "Clock Out" debe quedar deshabilitado si no hay ninguna sesión abierta. Actualmente ambos botones están siempre activos.
 - **Redirección tras login según rol** — Actualmente la ruta raíz redirige a `/login`. Un usuario ya logueado que navegue a `/` debería ir directamente a su dashboard sin pasar por el login. El `authGuard` ya tiene la info, pero falta esa lógica en la ruta raíz.
 - **Sin feedback visual en el login al fallar** — Cuando el email o contraseña son incorrectos, debería mostrarse un mensaje de error claro en el formulario.
 - **Emails: abrir email completo** — El click en una fila de email solo marca como leído pero no abre ninguna vista de detalle. Falta una vista de email individual o un panel lateral (slide-over).

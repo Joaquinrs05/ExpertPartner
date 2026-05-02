@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { AvatarComponent } from '../../../../shared/components/avatar/avatar.component';
 
 interface EmployeeProfile {
@@ -12,7 +13,7 @@ interface EmployeeProfile {
 @Component({
   selector: 'app-profile-card',
   standalone: true,
-  imports: [AvatarComponent],
+  imports: [AvatarComponent, RouterLink],
   templateUrl: './profile-card.component.html',
   styleUrl: './profile-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

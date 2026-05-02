@@ -29,4 +29,10 @@ export class TeamService {
     return this.consultants$;
   }
 
+  addConsultant(consultant: Omit<Consultant, 'id'>): void {
+    const current = this._consultants.getValue();
+    const next = this._consultants.getValue().length + 1;
+    const id = String(next).padStart(3, '0');
+    this._consultants.next([...current, { ...consultant, id }]);
+  }
 }

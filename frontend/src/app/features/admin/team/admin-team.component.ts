@@ -5,15 +5,37 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TeamService } from '@core/services/team.service';
 import { AuthService } from '@core/services/auth.service';
+import { Consultant, ConsultantRole } from '@core/models/consultant.model';
 import { ConsultantRowComponent } from './consultant-row/consultant-row.component';
+
+interface NewConsultantForm {
+  fullName: string;
+  employeeId: string;
+  role: ConsultantRole | '';
+  level: string;
+  availability: Consultant['availability'] | '';
+  eomStatus: Consultant['eomStatus'] | '';
+  currentProject: string;
+}
+
+const EMPTY_FORM: NewConsultantForm = {
+  fullName: '',
+  employeeId: '',
+  role: '',
+  level: '',
+  availability: '',
+  eomStatus: '',
+  currentProject: '',
+};
 
 @Component({
   selector: 'app-admin-team',
   standalone: true,
-  imports: [ConsultantRowComponent],
+  imports: [ConsultantRowComponent, FormsModule],
   templateUrl: './admin-team.component.html',
   styleUrl: './admin-team.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,6 +53,14 @@ export class AdminTeamComponent {
   currentPage = signal(1);
 
   canImport = computed(() => this.authService.currentUser()?.role === 'admin');
+
+  // Modal
+  showModal = signal(false);
+  formError = signal('');
+  form = signal<NewConsultantForm>({ ...EMPTY_FORM });
+
+  // Import Excel
+  importToast = signal<string | null>(null);
 
   filteredConsultants = computed(() => {
     const q = this.searchQuery().toLowerCase();
@@ -88,5 +118,47 @@ export class AdminTeamComponent {
   goToPage(p: number): void {
     const clamped = Math.max(1, Math.min(p, this.totalPages()));
     this.currentPage.set(clamped);
+  }
+
+  openModal(): void {
+    this.form.set({ ...EMPTY_FORM });
+    this.formError.set('');
+    this.showModal.set(true);
+  }
+
+  closeModal(): void {
+    this.showModal.set(false);
+  }
+
+  updateField<K extends keyof NewConsultantForm>(key: K, value: NewConsultantForm[K]): void {
+    this.form.update(f => ({ ...f, [key]: value }));
+  }
+
+  submitForm(): void {
+    const f = this.form();
+    if (!f.fullName.trim() || !f.employeeId.trim() || !f.role || !f.level || !f.availability || !f.eomStatus) {
+      this.formError.set('Please fill in all required fields.');
+      return;
+    }
+    this.teamService.addConsultant({
+      fullName: f.fullName.trim(),
+      employeeId: f.employeeId.trim(),
+      role: f.role as ConsultantRole,
+      level: f.level,
+      availability: f.availability as Consultant['availability'],
+      eomStatus: f.eomStatus as Consultant['eomStatus'],
+      currentProject: f.currentProject.trim() || null,
+      avatarUrl: null,
+      isOnline: false,
+    });
+    this.closeModal();
+  }
+
+  onImportExcel(e: Event): void {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    (e.target as HTMLInputElement).value = '';
+    if (!file) return;
+    this.importToast.set(`"${file.name}" received. Processing will begin once connected to n8n.`);
+    setTimeout(() => this.importToast.set(null), 5000);
   }
 }

@@ -1,6 +1,11 @@
+:host {
+  display: contents;
+}
+
 .sidebar {
   width: var(--sidebar-width);
   background: var(--color-navy);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
