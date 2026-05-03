@@ -1,5 +1,5 @@
 <div class="emails-page">
-  <h2 class="page-title">Filtered Emails</h2>
+  <h2 class="page-title">{{ 'emails.title' | translate }}</h2>
 
   <div class="card">
     <div class="toolbar">
@@ -9,7 +9,7 @@
           [checked]="allSelected()"
           (change)="toggleSelectAll()"
         />
-        <span>Select all</span>
+        <span>{{ 'common.search' | translate }}</span>
       </label>
       <span class="processed-count">{{ processedCount() }} Processed</span>
     </div>
@@ -24,7 +24,7 @@
         ></app-email-row>
       }
       @if (emails().length === 0) {
-        <p class="empty">No emails found.</p>
+        <p class="empty">{{ 'emails.noEmails' | translate }}</p>
       }
     </div>
   </div>

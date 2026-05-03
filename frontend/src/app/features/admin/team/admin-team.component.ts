@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslatePipe } from '@ngx-translate/core';
 import { TeamService } from '@core/services/team.service';
 import { AuthService } from '@core/services/auth.service';
 import { Consultant, ConsultantRole } from '@core/models/consultant.model';
@@ -35,7 +36,7 @@ const EMPTY_FORM: NewConsultantForm = {
 @Component({
   selector: 'app-admin-team',
   standalone: true,
-  imports: [ConsultantRowComponent, FormsModule],
+  imports: [ConsultantRowComponent, FormsModule, TranslatePipe],
   templateUrl: './admin-team.component.html',
   styleUrl: './admin-team.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

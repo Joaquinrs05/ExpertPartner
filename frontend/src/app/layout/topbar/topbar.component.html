@@ -17,6 +17,16 @@
   </div>
 
   <div class="topbar__actions">
+    <!-- Language toggle -->
+    <button
+      class="topbar__lang-btn"
+      type="button"
+      (click)="langService.toggle()"
+      [attr.aria-label]="'Switch language'"
+    >
+      {{ langService.current() === 'es' ? 'EN' : 'ES' }}
+    </button>
+
     <button class="topbar__icon-btn" type="button" aria-label="Notifications">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
@@ -45,7 +55,7 @@
                 <circle cx="12" cy="8" r="4" />
                 <path d="M4 20v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2" />
               </svg>
-              Profile
+              {{ 'topbar.viewProfile' | translate }}
             </a>
           }
           <button class="dropdown__item dropdown__item--danger" type="button" (click)="logout()" role="menuitem">
@@ -54,7 +64,7 @@
               <polyline points="16,17 21,12 16,7" />
               <line x1="21" y1="12" x2="9" y2="12" />
             </svg>
-            Cerrar sesión
+            {{ 'topbar.logout' | translate }}
           </button>
         </div>
       }

@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, UpperCasePipe } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ImportsService } from '@core/services/imports.service';
 import { ImportedFile } from '@core/models/import-file.model';
 
 @Component({
   selector: 'app-admin-imports',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe, UpperCasePipe, TranslatePipe],
   templateUrl: './admin-imports.component.html',
   styleUrl: './admin-imports.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -2,7 +2,6 @@
 
   <div class="profile-card card">
 
-    <!-- Avatar + photo upload -->
     <div class="avatar-section">
       <div class="avatar-wrap">
         <app-avatar
@@ -10,7 +9,7 @@
           [photoUrl]="photoUrl()"
           [size]="88"
         />
-        <label class="photo-btn" title="Change photo">
+        <label class="photo-btn" [title]="'profile.changePhoto' | translate">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
             <circle cx="12" cy="13" r="4" />
@@ -20,30 +19,28 @@
       </div>
     </div>
 
-    <!-- Name + role -->
     <div class="identity">
       <h2 class="profile-name">{{ firstName() }} <span class="profile-lastname">{{ lastName() }}</span></h2>
-      <p class="profile-role text-body-md">Employee</p>
+      <p class="profile-role text-body-md">{{ 'profile.role' | translate }}</p>
     </div>
 
     <hr class="divider" />
 
-    <!-- Info rows -->
     <dl class="info-list">
       <div class="info-row">
-        <dt class="info-label text-label-sm">Employee ID</dt>
+        <dt class="info-label text-label-sm">{{ 'profile.employeeId' | translate }}</dt>
         <dd class="info-value text-body-md">{{ user()?.employeeId ?? '—' }}</dd>
       </div>
       <div class="info-row">
-        <dt class="info-label text-label-sm">Email</dt>
+        <dt class="info-label text-label-sm">{{ 'profile.email' | translate }}</dt>
         <dd class="info-value text-body-md">{{ user()?.email ?? '—' }}</dd>
       </div>
       <div class="info-row">
-        <dt class="info-label text-label-sm">First name</dt>
+        <dt class="info-label text-label-sm">{{ 'profile.firstName' | translate }}</dt>
         <dd class="info-value text-body-md">{{ firstName() }}</dd>
       </div>
       <div class="info-row">
-        <dt class="info-label text-label-sm">Last name</dt>
+        <dt class="info-label text-label-sm">{{ 'profile.lastName' | translate }}</dt>
         <dd class="info-value text-body-md">{{ lastName() || '—' }}</dd>
       </div>
     </dl>

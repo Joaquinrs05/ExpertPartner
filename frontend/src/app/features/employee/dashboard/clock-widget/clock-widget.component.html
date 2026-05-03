@@ -1,6 +1,6 @@
 <div class="clock-card card">
   <div class="clock-header">
-    <span class="clock-label text-label-sm">Time &amp; Attendance</span>
+    <span class="clock-label text-label-sm">{{ 'dashboard.employee.clockWidget.status' | translate }}</span>
   </div>
 
   <p class="clock-date text-body-md">{{ currentTime() | date:'EEEE, MMMM d, yyyy' }}</p>
@@ -10,7 +10,7 @@
   <div class="clock-status">
     <span class="status-dot" [class.status-dot--on]="isOnDuty()"></span>
     <span class="status-text text-body-md">
-      {{ isOnDuty() ? 'Currently On Duty' : 'Currently Clocked Out' }}
+      {{ isOnDuty() ? ('dashboard.employee.clockWidget.onDuty' | translate) : ('dashboard.employee.clockWidget.offDuty' | translate) }}
     </span>
   </div>
 
@@ -20,6 +20,6 @@
     (click)="toggleClock()"
     type="button"
   >
-    {{ isOnDuty() ? 'Clock Out' : '→ Clock In' }}
+    {{ isOnDuty() ? ('dashboard.employee.clockWidget.clockOut' | translate) : ('dashboard.employee.clockWidget.clockIn' | translate) }}
   </button>
 </div>

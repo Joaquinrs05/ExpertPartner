@@ -115,6 +115,24 @@
   background: var(--color-urgent-bg);
 }
 
+.topbar__lang-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: none;
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.topbar__lang-btn:hover {
+  color: var(--color-text);
+  border-color: var(--color-text);
+}
+
 .topbar__icon-btn {
   background: none;
   border: none;

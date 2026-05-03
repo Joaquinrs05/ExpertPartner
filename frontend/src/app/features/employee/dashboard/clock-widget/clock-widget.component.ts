@@ -7,13 +7,14 @@ import {
 } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AttendanceService } from '@core/services/attendance.service';
 import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-clock-widget',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe, TranslatePipe],
   templateUrl: './clock-widget.component.html',
   styleUrl: './clock-widget.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -12,14 +12,14 @@
     <form class="auth-form" (ngSubmit)="submit()" #f="ngForm">
 
       <div class="form-group">
-        <label class="form-label">Email Address</label>
+        <label class="form-label">{{ 'auth.login.email' | translate }}</label>
         <div class="input-wrapper" [class.input-error]="emailError()">
           <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
           <input
             type="email"
-            placeholder="your@company.com"
+            [placeholder]="'auth.login.emailPlaceholder' | translate"
             [value]="email()"
             (input)="email.set($any($event.target).value)"
             (focus)="emailError.set(false)"
@@ -27,14 +27,13 @@
           />
         </div>
         @if (emailError()) {
-          <span class="field-error">Email is required</span>
+          <span class="field-error">{{ 'auth.login.email' | translate }} {{ 'common.noResults' | translate }}</span>
         }
       </div>
 
       <div class="form-group">
         <div class="form-label-row">
-          <label class="form-label">Password</label>
-          <a href="#" class="forgot-link">Forgot password?</a>
+          <label class="form-label">{{ 'auth.login.password' | translate }}</label>
         </div>
         <div class="input-wrapper" [class.input-error]="passwordError()">
           <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -42,7 +41,7 @@
           </svg>
           <input
             type="password"
-            placeholder="••••••••"
+            [placeholder]="'auth.login.passwordPlaceholder' | translate"
             [value]="password()"
             (input)="password.set($any($event.target).value)"
             (focus)="passwordError.set(false)"
@@ -50,7 +49,7 @@
           />
         </div>
         @if (passwordError()) {
-          <span class="field-error">Password is required</span>
+          <span class="field-error">{{ 'auth.login.password' | translate }}</span>
         }
       </div>
 
@@ -60,18 +59,21 @@
 
       <button type="submit" class="btn-submit" [disabled]="loading()">
         @if (loading()) {
-          <span class="spinner"></span> Authenticating...
+          <span class="spinner"></span> {{ 'auth.login.loading' | translate }}
         } @else {
-          LOG IN →
+          {{ 'auth.login.submit' | translate }} →
         }
       </button>
 
     </form>
 
-    <p class="auth-switch">Don't have an account? <a routerLink="/register">Create one</a></p>
+    <p class="auth-switch">
+      {{ 'auth.login.noAccount' | translate }}
+      <a routerLink="/register">{{ 'auth.login.register' | translate }}</a>
+    </p>
 
     <footer class="auth-footer">
-      <p>© 2026 ExpertPartner · <a href="#">Contact IT Support</a></p>
+      <p>© 2026 ExpertPartner</p>
     </footer>
 
   </div>

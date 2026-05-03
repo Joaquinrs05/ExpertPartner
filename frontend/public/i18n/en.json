@@ -1,0 +1,219 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "attendance": "Attendance",
+    "profile": "Profile",
+    "emails": "Emails",
+    "team": "Team",
+    "imports": "Imports",
+    "settings": "Settings"
+  },
+  "topbar": {
+    "viewProfile": "View Profile",
+    "logout": "Log out"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to your account",
+      "email": "Email address",
+      "emailPlaceholder": "your@email.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Sign in",
+      "loading": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "register": "Register",
+      "error": "Incorrect email or password."
+    },
+    "register": {
+      "title": "Create account",
+      "subtitle": "Join ExpertPartner",
+      "name": "Full name",
+      "namePlaceholder": "John Doe",
+      "email": "Email address",
+      "emailPlaceholder": "your@email.com",
+      "password": "Password",
+      "passwordPlaceholder": "Min. 6 characters",
+      "confirmPassword": "Confirm password",
+      "confirmPlaceholder": "Repeat password",
+      "submit": "Create account",
+      "loading": "Creating account...",
+      "hasAccount": "Already have an account?",
+      "login": "Sign in",
+      "error": "Could not create account. The email may already be in use."
+    }
+  },
+  "dashboard": {
+    "admin": {
+      "title": "Dashboard",
+      "subtitle": "Here's what's happening today",
+      "kpi": {
+        "activeConsultants": "Active Consultants",
+        "avgHoursWeek": "Avg Hours / Week",
+        "urgentEmails": "Urgent Emails",
+        "teamUtilization": "Team Utilization"
+      },
+      "activityMonitor": {
+        "title": "Activity Monitor",
+        "live": "LIVE",
+        "status": "Status",
+        "consultant": "Consultant",
+        "project": "Project",
+        "clockIn": "Clock In",
+        "today": "Today",
+        "onDuty": "On Duty",
+        "offDuty": "Off Duty"
+      },
+      "expressInbox": {
+        "title": "Express Inbox",
+        "viewAll": "View All",
+        "urgent": "URGENT",
+        "leadGen": "LEAD GEN",
+        "finance": "FINANCE"
+      }
+    },
+    "employee": {
+      "title": "My Dashboard",
+      "greeting": "Good morning",
+      "clockWidget": {
+        "status": "Status",
+        "onDuty": "On Duty",
+        "offDuty": "Off Duty",
+        "clockIn": "Clock In",
+        "clockOut": "Clock Out",
+        "hoursToday": "Hours today"
+      },
+      "weeklyHours": {
+        "title": "Weekly Hours",
+        "target": "Target",
+        "hours": "h"
+      },
+      "profileCard": {
+        "title": "My Profile",
+        "viewFull": "View Full Profile",
+        "employeeId": "Employee ID",
+        "department": "Department",
+        "status": "Status",
+        "active": "Active"
+      }
+    }
+  },
+  "attendance": {
+    "title": "Attendance",
+    "subtitle": "Track your working hours",
+    "clockIn": "Clock In",
+    "clockOut": "Clock Out",
+    "startDay": "Start your day",
+    "endDay": "End your day",
+    "recentActivity": "Recent Activity",
+    "date": "Date",
+    "clockInTime": "Clock In",
+    "clockOutTime": "Clock Out",
+    "hoursWorked": "Hours Worked",
+    "status": "Status",
+    "complete": "Complete",
+    "inProgress": "In Progress",
+    "noLogs": "No attendance records yet.",
+    "weeklyProgress": "Weekly Progress",
+    "targetHours": "Target: {{hours}}h"
+  },
+  "emails": {
+    "title": "Filtered Emails",
+    "subtitle": "AI-classified inbox",
+    "search": "Search emails...",
+    "all": "All",
+    "urgent": "Urgent",
+    "leadGen": "Lead Gen",
+    "finance": "Finance",
+    "noEmails": "No emails found.",
+    "starred": "Starred"
+  },
+  "team": {
+    "title": "Team Management",
+    "subtitle": "Manage your consultants",
+    "search": "Search consultants...",
+    "addConsultant": "New Consultant",
+    "importExcel": "Import Excel",
+    "importSuccess": "File uploaded. Processing will begin shortly.",
+    "columns": {
+      "name": "Name",
+      "role": "Role",
+      "project": "Project",
+      "status": "Status",
+      "hoursWeek": "Hours / Week",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "bench": "On Bench",
+      "leave": "On Leave"
+    },
+    "modal": {
+      "title": "New Consultant",
+      "name": "Full Name",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "john@company.com",
+      "role": "Role",
+      "project": "Project",
+      "projectPlaceholder": "Project name",
+      "status": "Status",
+      "hoursWeek": "Hours / Week",
+      "cancel": "Cancel",
+      "save": "Save",
+      "errorRequired": "Please fill in all required fields."
+    }
+  },
+  "imports": {
+    "title": "Imports",
+    "subtitle": "Excel files processed by n8n",
+    "upload": "Upload Excel",
+    "uploadSuccess": "File uploaded. n8n will process it shortly.",
+    "noFiles": "No imported files yet.",
+    "columns": {
+      "fileName": "File Name",
+      "uploadedAt": "Uploaded",
+      "processedAt": "Processed",
+      "status": "Status",
+      "workers": "Workers",
+      "month": "Month"
+    },
+    "status": {
+      "ready": "Ready",
+      "processing": "Processing",
+      "error": "Error"
+    },
+    "preview": "Preview",
+    "hidePreview": "Hide",
+    "worker": "Worker",
+    "month": "Month"
+  },
+  "profile": {
+    "title": "My Profile",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "role": "Role",
+    "employeeId": "Employee ID",
+    "changePhoto": "Change Photo",
+    "save": "Save Changes",
+    "saved": "Changes saved"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme"
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "noResults": "No results found.",
+    "actions": "Actions"
+  }
+}

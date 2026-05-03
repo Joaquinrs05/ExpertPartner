@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { BadgeComponent, BadgeType } from '../../../../shared/components/badge/badge.component';
 import { TimeAgoPipe } from '../../../../shared/pipes/time-ago.pipe';
 import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
@@ -52,7 +53,7 @@ const MOCK_EMAILS: EmailEntry[] = [
 @Component({
   selector: 'app-express-inbox',
   standalone: true,
-  imports: [BadgeComponent, TimeAgoPipe, TruncatePipe],
+  imports: [BadgeComponent, TimeAgoPipe, TruncatePipe, TranslatePipe],
   templateUrl: './express-inbox.component.html',
   styleUrl: './express-inbox.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

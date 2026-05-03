@@ -5,21 +5,21 @@
       <div class="auth-logo__icon">EP</div>
       <div>
         <h1 class="auth-logo__title">Expert Partner</h1>
-        <p class="auth-logo__sub">Create your account</p>
+        <p class="auth-logo__sub">{{ 'auth.register.subtitle' | translate }}</p>
       </div>
     </div>
 
     <form class="auth-form" (ngSubmit)="submit()" #f="ngForm">
 
       <div class="form-group">
-        <label class="form-label">Full Name</label>
+        <label class="form-label">{{ 'auth.register.name' | translate }}</label>
         <div class="input-wrapper" [class.input-error]="nameError()">
           <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
           <input
             type="text"
-            placeholder="Jane Smith"
+            [placeholder]="'auth.register.namePlaceholder' | translate"
             [value]="name()"
             (input)="name.set($any($event.target).value)"
             (focus)="nameError.set(false)"
@@ -27,19 +27,19 @@
           />
         </div>
         @if (nameError()) {
-          <span class="field-error">Full name is required</span>
+          <span class="field-error">{{ 'auth.register.name' | translate }}</span>
         }
       </div>
 
       <div class="form-group">
-        <label class="form-label">Email Address</label>
+        <label class="form-label">{{ 'auth.register.email' | translate }}</label>
         <div class="input-wrapper" [class.input-error]="emailError()">
           <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
           <input
             type="email"
-            placeholder="your@company.com"
+            [placeholder]="'auth.register.emailPlaceholder' | translate"
             [value]="email()"
             (input)="email.set($any($event.target).value)"
             (focus)="emailError.set(false)"
@@ -47,19 +47,19 @@
           />
         </div>
         @if (emailError()) {
-          <span class="field-error">Email is required</span>
+          <span class="field-error">{{ 'auth.register.email' | translate }}</span>
         }
       </div>
 
       <div class="form-group">
-        <label class="form-label">Password <span class="form-hint">(min. 6 characters)</span></label>
+        <label class="form-label">{{ 'auth.register.password' | translate }}</label>
         <div class="input-wrapper" [class.input-error]="passwordError()">
           <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
           <input
             type="password"
-            placeholder="••••••••"
+            [placeholder]="'auth.register.passwordPlaceholder' | translate"
             [value]="password()"
             (input)="password.set($any($event.target).value)"
             (focus)="passwordError.set(false)"
@@ -67,19 +67,19 @@
           />
         </div>
         @if (passwordError()) {
-          <span class="field-error">Password must be at least 6 characters</span>
+          <span class="field-error">{{ 'auth.register.password' | translate }}</span>
         }
       </div>
 
       <div class="form-group">
-        <label class="form-label">Confirm Password</label>
+        <label class="form-label">{{ 'auth.register.confirmPassword' | translate }}</label>
         <div class="input-wrapper" [class.input-error]="confirmError()">
           <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
           </svg>
           <input
             type="password"
-            placeholder="••••••••"
+            [placeholder]="'auth.register.confirmPlaceholder' | translate"
             [value]="confirmPassword()"
             (input)="confirmPassword.set($any($event.target).value)"
             (focus)="confirmError.set(false)"
@@ -87,7 +87,7 @@
           />
         </div>
         @if (confirmError()) {
-          <span class="field-error">Passwords do not match</span>
+          <span class="field-error">{{ 'auth.register.confirmPassword' | translate }}</span>
         }
       </div>
 
@@ -97,18 +97,21 @@
 
       <button type="submit" class="btn-submit" [disabled]="loading()">
         @if (loading()) {
-          <span class="spinner"></span> Creating account...
+          <span class="spinner"></span> {{ 'auth.register.loading' | translate }}
         } @else {
-          CREATE ACCOUNT →
+          {{ 'auth.register.submit' | translate }} →
         }
       </button>
 
     </form>
 
-    <p class="auth-switch">Already have an account? <a routerLink="/login">Log in</a></p>
+    <p class="auth-switch">
+      {{ 'auth.register.hasAccount' | translate }}
+      <a routerLink="/login">{{ 'auth.register.login' | translate }}</a>
+    </p>
 
     <footer class="auth-footer">
-      <p>© 2026 ExpertPartner · <a href="#">Contact IT Support</a></p>
+      <p>© 2026 ExpertPartner</p>
     </footer>
 
   </div>

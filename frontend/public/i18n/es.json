@@ -1,0 +1,219 @@
+{
+  "nav": {
+    "dashboard": "Panel",
+    "attendance": "Control horario",
+    "profile": "Perfil",
+    "emails": "Correos",
+    "team": "Equipo",
+    "imports": "Importaciones",
+    "settings": "Ajustes"
+  },
+  "topbar": {
+    "viewProfile": "Ver perfil",
+    "logout": "Cerrar sesión"
+  },
+  "auth": {
+    "login": {
+      "title": "Bienvenido",
+      "subtitle": "Accede a tu cuenta",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@correo.com",
+      "password": "Contraseña",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Entrar",
+      "loading": "Entrando...",
+      "noAccount": "¿No tienes cuenta?",
+      "register": "Regístrate",
+      "error": "Email o contraseña incorrectos."
+    },
+    "register": {
+      "title": "Crear cuenta",
+      "subtitle": "Únete a ExpertPartner",
+      "name": "Nombre completo",
+      "namePlaceholder": "Juan García",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@correo.com",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Mín. 6 caracteres",
+      "confirmPassword": "Confirmar contraseña",
+      "confirmPlaceholder": "Repite la contraseña",
+      "submit": "Crear cuenta",
+      "loading": "Creando cuenta...",
+      "hasAccount": "¿Ya tienes cuenta?",
+      "login": "Inicia sesión",
+      "error": "No se pudo crear la cuenta. El email puede que ya esté en uso."
+    }
+  },
+  "dashboard": {
+    "admin": {
+      "title": "Panel",
+      "subtitle": "Esto es lo que ocurre hoy",
+      "kpi": {
+        "activeConsultants": "Consultores activos",
+        "avgHoursWeek": "Horas medias / semana",
+        "urgentEmails": "Correos urgentes",
+        "teamUtilization": "Utilización del equipo"
+      },
+      "activityMonitor": {
+        "title": "Monitor de actividad",
+        "live": "EN VIVO",
+        "status": "Estado",
+        "consultant": "Consultor",
+        "project": "Proyecto",
+        "clockIn": "Entrada",
+        "today": "Hoy",
+        "onDuty": "En turno",
+        "offDuty": "Fuera de turno"
+      },
+      "expressInbox": {
+        "title": "Bandeja rápida",
+        "viewAll": "Ver todos",
+        "urgent": "URGENTE",
+        "leadGen": "CAPTACIÓN",
+        "finance": "FINANZAS"
+      }
+    },
+    "employee": {
+      "title": "Mi panel",
+      "greeting": "Buenos días",
+      "clockWidget": {
+        "status": "Estado",
+        "onDuty": "En turno",
+        "offDuty": "Fuera de turno",
+        "clockIn": "Fichar entrada",
+        "clockOut": "Fichar salida",
+        "hoursToday": "Horas hoy"
+      },
+      "weeklyHours": {
+        "title": "Horas semanales",
+        "target": "Objetivo",
+        "hours": "h"
+      },
+      "profileCard": {
+        "title": "Mi perfil",
+        "viewFull": "Ver perfil completo",
+        "employeeId": "ID de empleado",
+        "department": "Departamento",
+        "status": "Estado",
+        "active": "Activo"
+      }
+    }
+  },
+  "attendance": {
+    "title": "Control horario",
+    "subtitle": "Registra tus horas de trabajo",
+    "clockIn": "Fichar entrada",
+    "clockOut": "Fichar salida",
+    "startDay": "Comienza tu jornada",
+    "endDay": "Finaliza tu jornada",
+    "recentActivity": "Actividad reciente",
+    "date": "Fecha",
+    "clockInTime": "Entrada",
+    "clockOutTime": "Salida",
+    "hoursWorked": "Horas trabajadas",
+    "status": "Estado",
+    "complete": "Completado",
+    "inProgress": "En curso",
+    "noLogs": "Aún no hay registros de asistencia.",
+    "weeklyProgress": "Progreso semanal",
+    "targetHours": "Objetivo: {{hours}}h"
+  },
+  "emails": {
+    "title": "Correos filtrados",
+    "subtitle": "Bandeja clasificada por IA",
+    "search": "Buscar correos...",
+    "all": "Todos",
+    "urgent": "Urgente",
+    "leadGen": "Captación",
+    "finance": "Finanzas",
+    "noEmails": "No se encontraron correos.",
+    "starred": "Destacados"
+  },
+  "team": {
+    "title": "Gestión del equipo",
+    "subtitle": "Administra tus consultores",
+    "search": "Buscar consultores...",
+    "addConsultant": "Nuevo consultor",
+    "importExcel": "Importar Excel",
+    "importSuccess": "Archivo subido. El procesamiento comenzará en breve.",
+    "columns": {
+      "name": "Nombre",
+      "role": "Rol",
+      "project": "Proyecto",
+      "status": "Estado",
+      "hoursWeek": "Horas / semana",
+      "actions": "Acciones"
+    },
+    "status": {
+      "active": "Activo",
+      "bench": "En reserva",
+      "leave": "De baja"
+    },
+    "modal": {
+      "title": "Nuevo consultor",
+      "name": "Nombre completo",
+      "namePlaceholder": "Juan García",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "juan@empresa.com",
+      "role": "Rol",
+      "project": "Proyecto",
+      "projectPlaceholder": "Nombre del proyecto",
+      "status": "Estado",
+      "hoursWeek": "Horas / semana",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "errorRequired": "Por favor, rellena todos los campos obligatorios."
+    }
+  },
+  "imports": {
+    "title": "Importaciones",
+    "subtitle": "Archivos Excel procesados por n8n",
+    "upload": "Subir Excel",
+    "uploadSuccess": "Archivo subido. n8n lo procesará en breve.",
+    "noFiles": "Aún no hay archivos importados.",
+    "columns": {
+      "fileName": "Nombre del archivo",
+      "uploadedAt": "Subido",
+      "processedAt": "Procesado",
+      "status": "Estado",
+      "workers": "Trabajadores",
+      "month": "Mes"
+    },
+    "status": {
+      "ready": "Listo",
+      "processing": "Procesando",
+      "error": "Error"
+    },
+    "preview": "Vista previa",
+    "hidePreview": "Ocultar",
+    "worker": "Trabajador",
+    "month": "Mes"
+  },
+  "profile": {
+    "title": "Mi perfil",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "email": "Correo electrónico",
+    "role": "Rol",
+    "employeeId": "ID de empleado",
+    "changePhoto": "Cambiar foto",
+    "save": "Guardar cambios",
+    "saved": "Cambios guardados"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "language": "Idioma",
+    "theme": "Tema"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "search": "Buscar",
+    "noResults": "No se encontraron resultados.",
+    "actions": "Acciones"
+  }
+}

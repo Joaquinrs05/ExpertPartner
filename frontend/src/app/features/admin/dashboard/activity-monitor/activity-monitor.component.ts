@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { BadgeComponent } from '../../../../shared/components/badge/badge.component';
 import { TimeAgoPipe } from '../../../../shared/pipes/time-ago.pipe';
 
@@ -23,7 +24,7 @@ const MOCK_ACTIVITY: ActivityEntry[] = [
 @Component({
   selector: 'app-activity-monitor',
   standalone: true,
-  imports: [BadgeComponent, TimeAgoPipe],
+  imports: [BadgeComponent, TimeAgoPipe, TranslatePipe],
   templateUrl: './activity-monitor.component.html',
   styleUrl: './activity-monitor.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AttendanceService } from '@core/services/attendance.service';
 import { AuthService } from '@core/services/auth.service';
 import { ProgressBarComponent } from '@shared/components/progress-bar/progress-bar.component';
@@ -9,7 +10,7 @@ import { ActivityTableComponent } from './activity-table/activity-table.componen
 @Component({
   selector: 'app-employee-attendance',
   standalone: true,
-  imports: [DatePipe, ProgressBarComponent, ActivityTableComponent],
+  imports: [DatePipe, ProgressBarComponent, ActivityTableComponent, TranslatePipe],
   templateUrl: './employee-attendance.component.html',
   styleUrl: './employee-attendance.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

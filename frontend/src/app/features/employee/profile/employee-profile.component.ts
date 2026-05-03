@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '@core/services/auth.service';
 import { AvatarComponent } from '@shared/components/avatar/avatar.component';
 
 @Component({
   selector: 'app-employee-profile',
   standalone: true,
-  imports: [AvatarComponent],
+  imports: [AvatarComponent, TranslatePipe],
   templateUrl: './employee-profile.component.html',
   styleUrl: './employee-profile.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

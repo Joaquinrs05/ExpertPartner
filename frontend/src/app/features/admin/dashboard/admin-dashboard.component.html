@@ -1,22 +1,22 @@
 <div class="dashboard">
-  <h1 class="text-h1 dashboard__heading">Dashboard</h1>
+  <h1 class="text-h1 dashboard__heading">{{ 'dashboard.admin.title' | translate }}</h1>
 
   <div class="dashboard__kpi-row">
     <app-kpi-card
-      title="Total Active Employees"
+      [title]="'dashboard.admin.kpi.activeConsultants' | translate"
       value="128"
       badgeType="total"
     />
     <app-kpi-card
-      title="Currently Working"
+      [title]="'dashboard.admin.kpi.teamUtilization' | translate"
       value="42 / 128 online"
       badgeType="live"
     />
   </div>
 
   <div class="dashboard__actions">
-    <button class="btn-primary" type="button">+ Add New Employee</button>
-    <button class="btn-secondary" type="button" routerLink="/admin/emails">≡ Review Filtered Emails</button>
+    <button class="btn-primary" type="button">+ {{ 'team.addConsultant' | translate }}</button>
+    <button class="btn-secondary" type="button" routerLink="/admin/emails">≡ {{ 'nav.emails' | translate }}</button>
   </div>
 
   <div class="dashboard__main">

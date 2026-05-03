@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslatePipe } from '@ngx-translate/core';
 import { EmailService } from '@core/services/email.service';
 import { EmailRowComponent } from './email-row/email-row.component';
 
 @Component({
   selector: 'app-admin-emails',
   standalone: true,
-  imports: [EmailRowComponent],
+  imports: [EmailRowComponent, TranslatePipe],
   templateUrl: './admin-emails.component.html',
   styleUrl: './admin-emails.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

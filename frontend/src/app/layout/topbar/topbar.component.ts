@@ -1,17 +1,20 @@
 import { ChangeDetectionStrategy, Component, computed, inject, output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '@core/services/auth.service';
+import { LanguageService } from '@core/services/language.service';
 
 @Component({
   selector: 'app-topbar',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopbarComponent {
   private readonly authService = inject(AuthService);
+  readonly langService = inject(LanguageService);
 
   sidebarToggle = output<void>();
 
