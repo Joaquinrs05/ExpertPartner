@@ -1,41 +1,103 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { DatePipe, UpperCasePipe } from '@angular/common';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { ImportsService } from '@core/services/imports.service';
-import { ImportedFile } from '@core/models/import-file.model';
+import { SupabaseService } from '@core/services/supabase.service';
+
+type UploadState = 'idle' | 'uploading' | 'success' | 'error';
+
+const WEBHOOK_640 = '/webhook/Nomina640';
+const WEBHOOK_642 = '/webhook/Nomina642';
+
+interface N8nResponse {
+  url_640?: string;
+  url_642?: string;
+}
+
+interface HistoryEntry {
+  id: string;
+  original_name: string;
+  uploaded_at: string;
+  url_640: string | null;
+  url_642: string | null;
+}
 
 @Component({
   selector: 'app-admin-imports',
   standalone: true,
-  imports: [DatePipe, UpperCasePipe, TranslatePipe],
+  imports: [DatePipe, TranslatePipe],
   templateUrl: './admin-imports.component.html',
   styleUrl: './admin-imports.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdminImportsComponent {
-  private readonly importsService = inject(ImportsService);
+export class AdminImportsComponent implements OnInit {
+  private readonly http = inject(HttpClient);
+  private readonly supabase = inject(SupabaseService);
 
-  files = toSignal(this.importsService.files$, { initialValue: [] });
-  expandedId = signal<string | null>(null);
-  uploadToast = signal<string | null>(null);
+  uploadState = signal<UploadState>('idle');
+  uploadMessage = signal('');
+  result640 = signal<string | null>(null);
+  result642 = signal<string | null>(null);
+  history = signal<HistoryEntry[]>([]);
 
-  togglePreview(id: string): void {
-    this.expandedId.update(current => current === id ? null : id);
+  async ngOnInit(): Promise<void> {
+    await this.loadHistory();
   }
 
-  statusLabel(file: ImportedFile): string {
-    if (file.status === 'ready') return 'Ready';
-    if (file.status === 'processing') return 'Processing...';
-    return 'Error';
+  private async loadHistory(): Promise<void> {
+    const { data } = await this.supabase.client
+      .from('import_history')
+      .select('*')
+      .order('uploaded_at', { ascending: false })
+      .limit(50);
+    if (data) this.history.set(data as HistoryEntry[]);
   }
 
   onUpload(e: Event): void {
-    const file = (e.target as HTMLInputElement).files?.[0];
-    (e.target as HTMLInputElement).value = '';
+    const input = e.target as HTMLInputElement;
+    const file = input.files?.[0];
+    input.value = '';
     if (!file) return;
-    this.importsService.addFile(file.name);
-    this.uploadToast.set(`"${file.name}" enviado a n8n. Aparecerá aquí cuando esté procesado.`);
-    setTimeout(() => this.uploadToast.set(null), 6000);
+
+    this.uploadState.set('uploading');
+    this.uploadMessage.set(`Subiendo "${file.name}"...`);
+    this.result640.set(null);
+    this.result642.set(null);
+
+    let pending = 2;
+    const results: N8nResponse = {};
+
+    const onDone = async () => {
+      pending--;
+      if (pending > 0) return;
+
+      if (results.url_640) this.result640.set(results.url_640);
+      if (results.url_642) this.result642.set(results.url_642);
+
+      await this.loadHistory();
+
+      this.uploadState.set('success');
+      this.uploadMessage.set(`"${file.name}" procesado correctamente.`);
+      setTimeout(() => this.uploadState.set('idle'), 5000);
+    };
+
+    const sendTo = (webhook: string, key: keyof N8nResponse) => {
+      const body = new FormData();
+      body.append('file', file, file.name);
+
+      this.http.post<N8nResponse>(webhook, body).subscribe({
+        next: (res) => {
+          if (res?.[key]) results[key] = res[key];
+          onDone();
+        },
+        error: (err) => {
+          console.warn('Webhook response:', err);
+          onDone();
+        },
+      });
+    };
+
+    sendTo(WEBHOOK_640, 'url_640');
+    sendTo(WEBHOOK_642, 'url_642');
   }
 }

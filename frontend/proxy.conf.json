@@ -1,0 +1,8 @@
+{
+  "/webhook": {
+    "target": "https://jrsgrowtth.ddns.net",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

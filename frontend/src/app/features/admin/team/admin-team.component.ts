@@ -55,13 +55,9 @@ export class AdminTeamComponent {
 
   canImport = computed(() => this.authService.currentUser()?.role === 'admin');
 
-  // Modal
   showModal = signal(false);
   formError = signal('');
   form = signal<NewConsultantForm>({ ...EMPTY_FORM });
-
-  // Import Excel
-  importToast = signal<string | null>(null);
 
   filteredConsultants = computed(() => {
     const q = this.searchQuery().toLowerCase();
@@ -153,13 +149,5 @@ export class AdminTeamComponent {
       isOnline: false,
     });
     this.closeModal();
-  }
-
-  onImportExcel(e: Event): void {
-    const file = (e.target as HTMLInputElement).files?.[0];
-    (e.target as HTMLInputElement).value = '';
-    if (!file) return;
-    this.importToast.set(`"${file.name}" received. Processing will begin once connected to n8n.`);
-    setTimeout(() => this.importToast.set(null), 5000);
   }
 }

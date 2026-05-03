@@ -83,7 +83,8 @@
               "buildTarget": "expertpartner:build:production"
             },
             "development": {
-              "buildTarget": "expertpartner:build:development"
+              "buildTarget": "expertpartner:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

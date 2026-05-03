@@ -5,121 +5,121 @@
       <h1 class="text-h1">{{ 'imports.title' | translate }}</h1>
       <p class="page-subtitle">{{ 'imports.subtitle' | translate }}</p>
     </div>
-    <label class="btn-primary upload-label">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-        <polyline points="17,8 12,3 7,8" />
-        <line x1="12" y1="3" x2="12" y2="15" />
-      </svg>
-      {{ 'imports.upload' | translate }}
-      <input type="file" accept=".xlsx,.xls" class="file-input" (change)="onUpload($event)" />
-    </label>
   </div>
 
-  @if (uploadToast()) {
-    <div class="toast toast--info" role="status">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
+  <div class="nomina-panel">
+    <div class="nomina-upload-area">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="nomina-upload-icon">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/>
       </svg>
-      {{ uploadToast() }}
-    </div>
-  }
+      <p class="nomina-upload-title">Subir nómina</p>
+      <p class="nomina-upload-hint">Un único Excel con los datos de la 640 y la 642</p>
 
-  <div class="files-list card">
-
-    @if (files().length === 0) {
-      <div class="empty-state">
-        <p>{{ 'imports.noFiles' | translate }}</p>
-      </div>
-    }
-
-    @for (file of files(); track file.id) {
-      <div class="file-row" [class.file-row--expanded]="expandedId() === file.id">
-        <div class="file-info">
-          <div class="file-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-              <polyline points="14,2 14,8 20,8" />
-              <line x1="16" y1="13" x2="8" y2="13" />
-              <line x1="16" y1="17" x2="8" y2="17" />
-            </svg>
-          </div>
-          <div class="file-meta">
-            <p class="file-name">{{ file.fileName }}</p>
-            <p class="file-dates text-body-md">
-              {{ file.uploadedAt | date:'d MMM yyyy, HH:mm' }}
-              @if (file.processedAt) {
-                · {{ file.processedAt | date:'HH:mm' }}
-              }
-            </p>
-          </div>
-        </div>
-
-        <div class="file-tags">
-          @if (file.month !== 'Pendiente') {
-            <span class="tag tag--month">{{ file.month }} {{ file.year }}</span>
+      @if (uploadState() !== 'idle') {
+        <div class="nomina-toast" [class.nomina-toast--uploading]="uploadState() === 'uploading'" [class.nomina-toast--error]="uploadState() === 'error'" role="status">
+          @if (uploadState() === 'uploading') {
+            <span class="nomina-spinner" aria-hidden="true"></span>
+          } @else if (uploadState() === 'success') {
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20,6 9,17 4,12"/></svg>
+          } @else {
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           }
-          @if (file.workerCount > 0) {
-            <span class="tag tag--workers">{{ file.workerCount }} {{ 'imports.worker' | translate }}</span>
-          }
-        </div>
-
-        <div class="file-status">
-          <span class="status-badge" [class]="'status-badge--' + file.status">
-            @if (file.status === 'processing') {
-              <span class="spinner"></span>
-            }
-            {{ statusLabel(file) }}
-          </span>
-        </div>
-
-        <div class="file-actions">
-          @if (file.status === 'ready') {
-            <button class="action-btn" type="button" (click)="togglePreview(file.id)">
-              {{ expandedId() === file.id ? ('imports.hidePreview' | translate) : ('imports.preview' | translate) }}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                @if (expandedId() === file.id) {
-                  <polyline points="18,15 12,9 6,15" />
-                } @else {
-                  <polyline points="6,9 12,15 18,9" />
-                }
-              </svg>
-            </button>
-          }
-        </div>
-      </div>
-
-      @if (expandedId() === file.id && file.status === 'ready') {
-        <div class="preview-panel">
-          <div class="preview-scroll">
-            <table class="preview-table">
-              <thead>
-                <tr>
-                  <th class="th-sticky">{{ 'imports.worker' | translate | uppercase }}</th>
-                  <th>{{ 'imports.month' | translate | uppercase }}</th>
-                  @for (col of file.columns; track col) {
-                    <th>{{ col }}</th>
-                  }
-                </tr>
-              </thead>
-              <tbody>
-                @for (row of file.previewRows; track row.trabajador) {
-                  <tr>
-                    <td class="td-sticky td-name">{{ row.trabajador }}</td>
-                    <td>{{ row.mes }}</td>
-                    @for (col of file.columns; track col) {
-                      <td class="td-value" [class.td-zero]="row.values[col] === '0%'">
-                        {{ row.values[col] }}
-                      </td>
-                    }
-                  </tr>
-                }
-              </tbody>
-            </table>
-          </div>
+          {{ uploadMessage() }}
         </div>
       }
+
+      <label class="nomina-upload-btn" [class.nomina-upload-btn--disabled]="uploadState() === 'uploading'">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        Seleccionar Excel
+        <input type="file" accept=".xlsx,.xls" class="file-input" [disabled]="uploadState() === 'uploading'" (change)="onUpload($event)" />
+      </label>
+    </div>
+
+    <div class="nomina-results">
+      <div class="nomina-result-slot">
+        <span class="nomina-result-label">Nómina 640</span>
+        @if (result640()) {
+          <div class="result-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/>
+            </svg>
+            <span class="result-box__name">{{ result640()!.split('/').pop() }}</span>
+            <a class="result-box__download" [href]="result640()!" target="_blank" rel="noopener">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Descargar
+            </a>
+          </div>
+        } @else {
+          <p class="result-empty">Esperando resultado…</p>
+        }
+      </div>
+
+      <div class="nomina-result-slot">
+        <span class="nomina-result-label">Nómina 642</span>
+        @if (result642()) {
+          <div class="result-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/>
+            </svg>
+            <span class="result-box__name">{{ result642()!.split('/').pop() }}</span>
+            <a class="result-box__download" [href]="result642()!" target="_blank" rel="noopener">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Descargar
+            </a>
+          </div>
+        } @else {
+          <p class="result-empty">Esperando resultado…</p>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="history-card card">
+    <p class="history-title">Historial de procesados</p>
+
+    @if (history().length === 0) {
+      <div class="empty-state">
+        <p>Aún no se ha procesado ningún archivo.</p>
+      </div>
     }
 
+    @for (entry of history(); track entry.id) {
+      <div class="history-row">
+        <div class="history-info">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/>
+          </svg>
+          <div>
+            <p class="history-filename">{{ entry.original_name }}</p>
+            <p class="history-date">{{ entry.uploaded_at | date:'d MMM yyyy, HH:mm' }}</p>
+          </div>
+        </div>
+
+        <div class="history-downloads">
+          @if (entry.url_640) {
+            <a class="history-dl-btn" [href]="entry.url_640" target="_blank" rel="noopener">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              640
+            </a>
+          }
+          @if (entry.url_642) {
+            <a class="history-dl-btn" [href]="entry.url_642" target="_blank" rel="noopener">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              642
+            </a>
+          }
+        </div>
+      </div>
+    }
   </div>
 </div>

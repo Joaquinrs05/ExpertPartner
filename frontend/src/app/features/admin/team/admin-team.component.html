@@ -1,14 +1,5 @@
 <div class="team-page">
 
-  @if (importToast()) {
-    <div class="import-toast" role="status">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="20,6 9,17 4,12" />
-      </svg>
-      {{ importToast() }}
-    </div>
-  }
-
   <div class="page-header">
     <div class="page-header__text">
       <h1 class="text-h1">{{ 'team.title' | translate }}</h1>
@@ -16,17 +7,6 @@
     </div>
     <div class="page-header__actions">
       <button class="btn-primary" type="button" (click)="openModal()">+ {{ 'team.addConsultant' | translate }}</button>
-      @if (canImport()) {
-        <label class="btn-secondary import-label">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="17,8 12,3 7,8" />
-            <line x1="12" y1="3" x2="12" y2="15" />
-          </svg>
-          {{ 'team.importExcel' | translate }}
-          <input type="file" accept=".xlsx,.xls" class="file-input" (change)="onImportExcel($event)" />
-        </label>
-      }
     </div>
   </div>
 
