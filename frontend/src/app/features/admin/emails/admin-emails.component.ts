@@ -2,12 +2,14 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslatePipe } from '@ngx-translate/core';
 import { EmailService } from '@core/services/email.service';
+import { Email } from '@core/models/email.model';
 import { EmailRowComponent } from './email-row/email-row.component';
+import { EmailDetailPanelComponent } from './email-detail-panel/email-detail-panel.component';
 
 @Component({
   selector: 'app-admin-emails',
   standalone: true,
-  imports: [EmailRowComponent, TranslatePipe],
+  imports: [EmailRowComponent, TranslatePipe, EmailDetailPanelComponent],
   templateUrl: './admin-emails.component.html',
   styleUrl: './admin-emails.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,8 +17,9 @@ import { EmailRowComponent } from './email-row/email-row.component';
 export class AdminEmailsComponent {
   private readonly emailService = inject(EmailService);
 
-  emails = toSignal(this.emailService.emails$, { initialValue: [] });
+  emails = toSignal(this.emailService.getEmails(), { initialValue: [] as Email[] });
   selectedIds = signal<Set<string>>(new Set());
+  selectedEmail = signal<Email | null>(null);
 
   allSelected = computed(() =>
     this.emails().length > 0 && this.selectedIds().size === this.emails().length
@@ -43,10 +46,18 @@ export class AdminEmailsComponent {
   }
 
   onStarToggle(id: string): void {
-    this.emailService.toggleStar(id);
+    const email = this.emails().find(e => e.id === id);
+    if (email) {
+      this.emailService.toggleStar(id, email.isStarred).subscribe();
+    }
   }
 
-  onRowClick(id: string): void {
-    this.emailService.markAsRead(id);
+  onRowClick(email: Email): void {
+    this.selectedEmail.set(email);
+    this.emailService.markAsRead(email.id).subscribe();
+  }
+
+  closePanel(): void {
+    this.selectedEmail.set(null);
   }
 }

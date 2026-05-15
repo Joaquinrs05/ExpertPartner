@@ -1,4 +1,4 @@
-<div class="email-row" [class.email-row--unread]="!email().isRead" (click)="rowClicked.emit(email().id)">
+<div class="email-row" [class.email-row--unread]="!email().isRead" (click)="rowClicked.emit(email())">
   <input
     type="checkbox"
     class="email-checkbox"
@@ -13,7 +13,7 @@
     aria-label="Toggle star"
   >{{ email().isStarred ? '★' : '☆' }}</button>
 
-  <span class="sender" [class.sender--unread]="!email().isRead">{{ email().senderName }}</span>
+  <span class="sender" [class.sender--unread]="!email().isRead">{{ email().sender }}</span>
 
   <span class="badge-wrap">
     <app-badge [type]="badgeType()"></app-badge>

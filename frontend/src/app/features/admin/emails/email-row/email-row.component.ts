@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
-import { FilteredEmail } from '@core/models/email.model';
+import { Email } from '@core/models/email.model';
 import { BadgeComponent } from '@shared/components/badge/badge.component';
 import { TimeAgoPipe } from '@shared/pipes/time-ago.pipe';
 import { TruncatePipe } from '@shared/pipes/truncate.pipe';
 
-type BadgeType = 'urgent' | 'lead' | 'finance' | 'update';
+type BadgeType = 'urgent' | 'finance' | 'update';
 
-const CATEGORY_MAP: Record<FilteredEmail['category'], BadgeType> = {
+const CATEGORY_MAP: Record<Email['category'], BadgeType> = {
   URGENT: 'urgent',
-  LEAD_GEN: 'lead',
   FINANCE: 'finance',
   UPDATE: 'update',
 };
@@ -22,10 +21,10 @@ const CATEGORY_MAP: Record<FilteredEmail['category'], BadgeType> = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmailRowComponent {
-  email = input.required<FilteredEmail>();
+  email = input.required<Email>();
 
   starToggled = output<string>();
-  rowClicked = output<string>();
+  rowClicked = output<Email>();
   checkboxChanged = output<string>();
 
   badgeType = computed<BadgeType>(() => CATEGORY_MAP[this.email().category]);

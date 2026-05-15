@@ -1,0 +1,42 @@
+<div class="attendance-page">
+  <div class="page-header">
+    <h1 class="text-h1">Control Horario</h1>
+    <p class="page-subtitle">Seguimiento de fichajes del equipo</p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="stat-card card stat-card--navy">
+      <span class="stat-card__label">Total empleados</span>
+      <span class="stat-card__value">{{ kpis().total }}</span>
+    </div>
+    <div class="stat-card card stat-card--green">
+      <span class="stat-card__label">Fichados hoy</span>
+      <span class="stat-card__value">{{ kpis().clockedIn }}</span>
+    </div>
+    <div class="stat-card card stat-card--gray">
+      <span class="stat-card__label">Sin fichar</span>
+      <span class="stat-card__value">{{ kpis().notClocked }}</span>
+    </div>
+    <div class="stat-card card stat-card--blue">
+      <span class="stat-card__label">Completados</span>
+      <span class="stat-card__value">{{ kpis().completed }}</span>
+    </div>
+  </div>
+
+  <div class="filter-bar card">
+    <input
+      type="date"
+      class="filter-input"
+      [value]="activeDate()"
+      (change)="onDateChange($event)"
+    />
+    <select class="filter-input filter-select" (change)="onStatusChange($event)">
+      <option value="all">Todos los estados</option>
+      <option value="clocked-in">Fichados</option>
+      <option value="not-clocked">Sin fichar</option>
+      <option value="completed">Completados</option>
+    </select>
+  </div>
+
+  <app-attendance-table [rows]="filteredRows()" />
+</div>

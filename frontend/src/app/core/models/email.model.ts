@@ -1,11 +1,11 @@
-export interface FilteredEmail {
+export interface Email {
   id: string;
-  senderName: string;
-  senderEmail: string;
+  sender: string;
   subject: string;
   preview: string;
-  category: 'URGENT' | 'LEAD_GEN' | 'FINANCE' | 'UPDATE';
+  category: 'URGENT' | 'FINANCE' | 'UPDATE';
   isStarred: boolean;
   isRead: boolean;
   receivedAt: Date;
+  body?: string;
 }

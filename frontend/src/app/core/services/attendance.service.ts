@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AttendanceLog } from '@core/models/attendance.model';
+import { AttendanceLog, EmployeeAttendanceRow } from '@core/models/attendance.model';
 
 const today = new Date();
 const d = (daysAgo: number): Date => {
@@ -114,5 +114,9 @@ export class AttendanceService {
     return this.logs$.pipe(
       map(logs => logs.some(l => l.employeeId === employeeId && l.date === todayStr && l.clockOut === null))
     );
+  }
+
+  getTeamAttendance(_date: string): Observable<EmployeeAttendanceRow[]> {
+    return of([]);
   }
 }

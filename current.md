@@ -11,6 +11,6 @@
 No task is currently in progress.
 
 ### Last completed
-**Feature ID:** skill-08 + skill-09 (parallel)
-**Feature title:** Filtered Emails + Team Management
-**Completed:** 2026-05-02
+**Feature ID:** skill-12
+**Feature title:** Email Integration: n8n → Supabase → Web
+**Completed:** 2026-05-16

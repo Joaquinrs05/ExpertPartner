@@ -1,0 +1,26 @@
+@if (email(); as e) {
+  <div class="backdrop" (click)="close()"></div>
+
+  <aside class="panel">
+    <button class="close-btn" (click)="close()" aria-label="Close panel">&#x2715;</button>
+
+    <div class="panel-header">
+      <h3 class="subject">{{ e.subject }}</h3>
+      <app-badge [type]="badgeType()"></app-badge>
+    </div>
+
+    <div class="meta">
+      <span class="meta-label">De:</span>
+      <span class="meta-value">{{ e.sender }}</span>
+    </div>
+
+    <div class="meta">
+      <span class="meta-label">Recibido:</span>
+      <span class="meta-value">{{ formattedDate() }}</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="body-area" [innerHTML]="safeBody()"></div>
+  </aside>
+}

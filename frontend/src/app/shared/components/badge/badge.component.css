@@ -79,3 +79,18 @@
   background: var(--color-finance-bg);
   color: var(--color-finance);
 }
+
+.badge--clocked-in {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.badge--not-clocked {
+  background: var(--color-finance-bg);
+  color: var(--color-finance);
+}
+
+.badge--completed {
+  background: var(--color-lead-bg);
+  color: var(--color-lead);
+}

@@ -183,6 +183,71 @@
         "/admin/team renders without errors"
       ],
       "dependencies": ["skill-05"]
+    },
+    {
+      "id": "skill-10",
+      "title": "Admin Attendance Control",
+      "description": "Build admin attendance view at /admin/attendance showing all employees' daily clock-in status with KPI summary cards and a filterable table.",
+      "skillFile": "skills/10-admin-attendance.md",
+      "status": "completed",
+      "completedAt": "2026-05-16",
+      "priority": 10,
+      "acceptanceCriteria": [
+        "KPI cards show: total employees, clocked in today, not clocked in, clocked out",
+        "Table shows one row per employee: avatar, name, employee ID, status badge, clock-in time, clock-out time, total hours",
+        "Status badge variants: Fichado (green), Sin fichar (gray), Completado (blue)",
+        "Filter by status (All / Fichado / Sin fichar / Completado)",
+        "Filter by date (defaults to today)",
+        "Clicking a row opens a side panel or expands the row with the employee's full week history",
+        "Mock data covers at least 8 employees with varied states",
+        "AttendanceService extended with getTeamAttendance(date) method returning all employees' logs for that day",
+        "Table has no vertical borders, row hover state, sticky header",
+        "/admin/attendance renders without errors"
+      ],
+      "dependencies": ["skill-07", "skill-09"]
+    },
+    {
+      "id": "skill-11",
+      "title": "Team — Onboarding Tabs (Nuevas altas / Activos)",
+      "description": "Extend the Team Management page with a tab system. 'Activos' keeps the existing consultant table. 'Nuevas altas' shows employees in onboarding with their automation progress steps.",
+      "skillFile": "skills/11-team-onboarding-tabs.md",
+      "status": "pending",
+      "priority": 11,
+      "acceptanceCriteria": [
+        "Team page has two tabs: 'Activos' and 'Nuevas altas'",
+        "Activos tab renders the existing consultant table unchanged",
+        "Nuevas altas tab shows a table with: avatar, name, start date, position, onboarding status badge, and automation progress",
+        "Automation progress shows a step tracker (e.g. Contrato, Alta SS, Accesos, Email corporativo) with each step marked as pending / in-progress / done",
+        "OnboardingService has mock data with at least 5 new hires in varied automation states",
+        "New hire status badge variants: En proceso (amber), Completado (green), Pendiente (gray)",
+        "Tab switching is animated (fade or slide)",
+        "Active tab is highlighted with emerald underline",
+        "Existing skill-09 filters and pagination remain functional in Activos tab",
+        "/admin/team renders without errors on both tabs"
+      ],
+      "dependencies": ["skill-09"]
+    },
+    {
+      "id": "skill-12",
+      "title": "Email Integration: n8n → Supabase → Web",
+      "description": "Connect the n8n 'Gestor de Correos Mama' workflow (id: dM6OESoQfgw6baJM) to the Angular email inbox. n8n saves classified emails (factura, consulta, urgente — never spam) to a Supabase table. EmailService reads from Supabase instead of mock data.",
+      "skillFile": "skills/12-email-n8n-integration.md",
+      "status": "completed",
+      "completedAt": "2026-05-16",
+      "priority": 12,
+      "acceptanceCriteria": [
+        "Supabase table 'emails' created with columns: id, subject, from_address, preview, category, received_at, is_read, is_starred, draft_id",
+        "n8n workflow modified: Factura branch inserts row to Supabase with category='FINANCE'",
+        "n8n workflow modified: Consulta branch inserts row to Supabase with category='UPDATE' after creating draft",
+        "n8n workflow modified: Urgente branch inserts row to Supabase with category='URGENT' after forwarding",
+        "Spam branch unchanged — no insert to Supabase",
+        "EmailService.getEmails() reads from Supabase 'emails' table ordered by received_at desc",
+        "EmailService.toggleStar() and markAsRead() update the Supabase row",
+        "Existing email UI (skill-08) works identically — only data source changes",
+        "No mock data used in EmailService after this skill",
+        "/admin/emails renders real emails from the automation"
+      ],
+      "dependencies": ["skill-08"]
     }
   ]
 }

@@ -14,7 +14,10 @@ export type BadgeType =
   | 'on-leave'
   | 'approved'
   | 'timesheets-pending'
-  | 'awaiting-review';
+  | 'awaiting-review'
+  | 'clocked-in'
+  | 'not-clocked'
+  | 'completed';
 
 @Component({
   selector: 'app-badge',
@@ -43,6 +46,9 @@ export class BadgeComponent {
       approved: 'Approved ✓',
       'timesheets-pending': 'Timesheets Pending',
       'awaiting-review': 'Awaiting Review ⏳',
+      'clocked-in': 'Fichado',
+      'not-clocked': 'Sin fichar',
+      'completed': 'Completado',
     };
     return labels[this.type()];
   });

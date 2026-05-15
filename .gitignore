@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build output
+dist/
+/tmp/
+/out-tsc/
+.angular/cache/
+coverage/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Agent & Claude downloaded dependencies (not project files)
+.agents/skills/
+.claude/skills/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# Editor
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Misc
+extensiones.txt

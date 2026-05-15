@@ -29,3 +29,8 @@
     </div>
   </div>
 </div>
+
+<app-email-detail-panel
+  [email]="selectedEmail()"
+  (closed)="closePanel()"
+></app-email-detail-panel>

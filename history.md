@@ -17,6 +17,13 @@
 
 ## Log
 
+### [2026-05-16] Agent: leader + implementer | Feature: skill-12
+**Action:** Connected n8n workflow "Gestor de Correos Mama" (dM6OESoQfgw6baJM) to Supabase. Added 3 Supabase insert nodes (Guardar Factura/Consulta/Urgente) to the workflow. Updated Angular EmailService to read from Supabase `emails` table instead of mock data. Supabase `emails` table created manually by user via SQL Editor.
+**Files changed:** `core/models/email.model.ts` (renamed FilteredEmail→Email, removed LEAD_GEN), `core/services/email.service.ts` (mock replaced by Supabase), `features/admin/emails/email-row/email-row.component.ts` (updated model import), `features/admin/emails/admin-emails.component.ts` (uses getEmails() observable). n8n workflow updated via MCP with 3 new Supabase nodes (credential: "Supabase account", auto-assigned).
+**Outcome:** All 10 acceptance criteria met. Spam branch unchanged. UI identical to skill-08. No mock data in EmailService.
+
+---
+
 ### [2026-05-02] Agent: leader (direct) + implementer | Feature: skill-08 + skill-09 (parallel)
 **Action:** Built Filtered Emails (EmailService, EmailModel, EmailRowComponent, AdminEmailsComponent) and Team Management (TeamService, ConsultantModel, ConsultantRowComponent, AdminTeamComponent). Subagent implemented skill-09 fully; skill-08 implemented directly by Leader (subagent lacked Write permissions). AvatarComponent extended with `isOnline` dot overlay. BadgeComponent extended with 6 new types (availability + EOM). Amber tokens added to styles.css.
 **Files changed:** `core/models/email.model.ts`, `core/services/email.service.ts`, `features/admin/emails/admin-emails.*`, `features/admin/emails/email-row/*`, `core/models/consultant.model.ts`, `core/services/team.service.ts`, `features/admin/team/admin-team.*`, `features/admin/team/consultant-row/*`, `shared/components/avatar/*` (extended), `shared/components/badge/*` (extended), `styles.css` (--color-amber, --color-amber-bg)

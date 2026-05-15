@@ -1,0 +1,115 @@
+.table-wrapper {
+  overflow-x: auto;
+  padding: 0;
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background: var(--color-card);
+  z-index: 1;
+}
+
+thead th {
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+
+tbody td {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  vertical-align: middle;
+}
+
+.table-row {
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.table-row:hover {
+  background: var(--color-row-hover);
+}
+
+.table-row--expanded {
+  background: var(--color-row-hover);
+}
+
+.employee-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.employee-name {
+  font-weight: 500;
+}
+
+.cell-muted {
+  color: var(--color-muted);
+}
+
+.history-row td {
+  padding: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.week-history {
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+.week-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.week-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.week-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+  padding: var(--space-xs) var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.week-table td {
+  padding: var(--space-xs) var(--space-sm);
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.week-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--color-muted);
+  padding: var(--space-xl) !important;
+}
