@@ -5,6 +5,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -12,6 +13,9 @@ import { TeamService } from '@core/services/team.service';
 import { AuthService } from '@core/services/auth.service';
 import { Consultant, ConsultantRole } from '@core/models/consultant.model';
 import { ConsultantRowComponent } from './consultant-row/consultant-row.component';
+
+const EXCEL_WEBHOOK = 'https://jrsgrowtth.ddns.net/webhook-test/gestor-altas-upload';
+type ImportState = 'idle' | 'uploading' | 'success' | 'error';
 
 interface NewConsultantForm {
   fullName: string;
@@ -44,6 +48,7 @@ const EMPTY_FORM: NewConsultantForm = {
 export class AdminTeamComponent {
   private readonly teamService = inject(TeamService);
   private readonly authService = inject(AuthService);
+  private readonly http = inject(HttpClient);
 
   readonly pageSize = 10;
 
@@ -54,6 +59,9 @@ export class AdminTeamComponent {
   currentPage = signal(1);
 
   canImport = computed(() => this.authService.currentUser()?.role === 'admin');
+
+  importState = signal<ImportState>('idle');
+  importMessage = signal('');
 
   showModal = signal(false);
   formError = signal('');
@@ -115,6 +123,34 @@ export class AdminTeamComponent {
   goToPage(p: number): void {
     const clamped = Math.max(1, Math.min(p, this.totalPages()));
     this.currentPage.set(clamped);
+  }
+
+  onExcelUpload(e: Event): void {
+    const input = e.target as HTMLInputElement;
+    const file = input.files?.[0];
+    input.value = '';
+    if (!file) return;
+
+    this.importState.set('uploading');
+    this.importMessage.set(`Subiendo "${file.name}"...`);
+
+    const body = new FormData();
+    body.append('file', file, file.name);
+
+    this.http.post<{ imported: number }>(EXCEL_WEBHOOK, body).subscribe({
+      next: (response) => {
+        const count = response?.imported ?? 0;
+        this.importState.set('success');
+        this.importMessage.set(`${count} trabajadores importados correctamente.`);
+        this.teamService.reload();
+        setTimeout(() => this.importState.set('idle'), 5000);
+      },
+      error: () => {
+        this.importState.set('error');
+        this.importMessage.set('Error al procesar el archivo. Inténtalo de nuevo.');
+        setTimeout(() => this.importState.set('idle'), 5000);
+      },
+    });
   }
 
   openModal(): void {

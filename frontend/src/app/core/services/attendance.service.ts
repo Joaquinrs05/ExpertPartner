@@ -3,50 +3,11 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AttendanceLog, EmployeeAttendanceRow } from '@core/models/attendance.model';
 
-const today = new Date();
-const d = (daysAgo: number): Date => {
-  const d = new Date(today);
-  d.setDate(today.getDate() - daysAgo);
-  return d;
-};
-const withTime = (base: Date, h: number, m: number): Date => {
-  const d = new Date(base);
-  d.setHours(h, m, 0, 0);
-  return d;
-};
 const toDateStr = (d: Date): string => d.toISOString().slice(0, 10);
-
-const MOCK_LOGS: AttendanceLog[] = [
-  {
-    id: '1', employeeId: 'EMP-001', date: toDateStr(d(5)),
-    clockIn: withTime(d(5), 9, 0), clockOut: withTime(d(5), 17, 30),
-    breakMinutes: 30, status: 'off_duty',
-  },
-  {
-    id: '2', employeeId: 'EMP-001', date: toDateStr(d(4)),
-    clockIn: withTime(d(4), 8, 45), clockOut: withTime(d(4), 17, 15),
-    breakMinutes: 45, status: 'off_duty',
-  },
-  {
-    id: '3', employeeId: 'EMP-001', date: toDateStr(d(3)),
-    clockIn: withTime(d(3), 9, 10), clockOut: withTime(d(3), 17, 40),
-    breakMinutes: 30, status: 'off_duty',
-  },
-  {
-    id: '4', employeeId: 'EMP-001', date: toDateStr(d(2)),
-    clockIn: withTime(d(2), 9, 0), clockOut: withTime(d(2), 18, 0),
-    breakMinutes: 60, status: 'off_duty',
-  },
-  {
-    id: '5', employeeId: 'EMP-001', date: toDateStr(d(1)),
-    clockIn: withTime(d(1), 8, 30), clockOut: withTime(d(1), 16, 30),
-    breakMinutes: 30, status: 'off_duty',
-  },
-];
 
 @Injectable({ providedIn: 'root' })
 export class AttendanceService {
-  private readonly _logs = new BehaviorSubject<AttendanceLog[]>([...MOCK_LOGS]);
+  private readonly _logs = new BehaviorSubject<AttendanceLog[]>([]);
   readonly logs$ = this._logs.asObservable();
 
   clockIn(employeeId: string): void {

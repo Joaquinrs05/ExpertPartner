@@ -15,7 +15,7 @@ export class EmailService {
         .select('*')
         .order('received_at', { ascending: false })
     ).pipe(
-      map(({ data }) => (data ?? []).map(this.mapRow))
+      map(({ data }) => (data ?? []).map(row => this.mapRow(row)))
     );
   }
 
@@ -34,7 +34,7 @@ export class EmailService {
   private mapRow(row: Record<string, unknown>): Email {
     return {
       id: row['id'] as string,
-      sender: row['from_address'] as string,
+      sender: this.parseSender(row['from_address']),
       subject: row['subject'] as string,
       preview: row['preview'] as string,
       category: row['category'] as Email['category'],
@@ -43,5 +43,16 @@ export class EmailService {
       isStarred: row['is_starred'] as boolean,
       body: row['body'] as string | undefined,
     };
+  }
+
+  private parseSender(raw: unknown): string {
+    if (typeof raw !== 'string') return String(raw ?? '');
+    try {
+      const parsed = JSON.parse(raw);
+      const first = parsed?.value?.[0];
+      return first?.name || first?.address || raw;
+    } catch {
+      return raw;
+    }
   }
 }

@@ -6,9 +6,29 @@
       <p class="page-subtitle">{{ 'team.subtitle' | translate }}</p>
     </div>
     <div class="page-header__actions">
+      @if (canImport()) {
+        <label class="btn-secondary import-label" title="Importar Excel">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          {{ 'team.importExcel' | translate }}
+          <input class="file-input" type="file" accept=".xlsx,.xls" (change)="onExcelUpload($event)" />
+        </label>
+      }
       <button class="btn-primary" type="button" (click)="openModal()">+ {{ 'team.addConsultant' | translate }}</button>
     </div>
   </div>
+
+  @if (importState() !== 'idle') {
+    <div class="import-toast" [class.import-toast--uploading]="importState() === 'uploading'" [class.import-toast--error]="importState() === 'error'">
+      @if (importState() === 'uploading') {
+        <span class="import-spinner" aria-hidden="true"></span>
+      }
+      {{ importMessage() }}
+    </div>
+  }
 
   <div class="filter-row">
     <div class="search-wrapper">
