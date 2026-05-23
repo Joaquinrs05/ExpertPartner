@@ -5,14 +5,30 @@
 This project uses a multi-agent workflow. Before doing any work, every agent must read these files in order:
 
 1. `CLAUDE.md` (this file) — rules and conventions
-2. `current.md` — what is being worked on right now
-3. `feature_list.json` — full feature list with status and acceptance criteria
-4. The assigned `skills/XX-name.md` — implementation spec for the current feature
+2. `specs/constitution.md` — immutable architectural principles (MUST NOT be violated)
+3. `current.md` — what is being worked on right now
+4. `feature_list.json` — full feature list with status and acceptance criteria
+5. `specs/XX-feature-name/spec.md` — user stories, requirements, and success criteria for the feature
+6. `specs/XX-feature-name/plan.md` — technical plan and data model (if it exists)
+7. `specs/XX-feature-name/tasks.md` — ordered task list with parallelism markers
+8. The assigned `skills/XX-name.md` — implementation reference and design details
+
+### Spec-Driven Development
+
+Every feature goes through three documents before implementation begins:
+
+| Document | Purpose | Who writes it |
+|---|---|---|
+| `spec.md` | User stories, requirements, success criteria | Leader |
+| `plan.md` | Technical approach, data model, component API | Leader |
+| `tasks.md` | Ordered task list with [P] parallel markers | Leader |
+
+Templates for creating new specs are in `.speckit/templates/`.
 
 ### Agent roles
-- **Leader** (`.agents/leader.md`) — orchestrates, picks next task, coordinates agents, never writes code
-- **Implementer** (`.agents/implementer.md`) — writes the Angular code for one feature at a time
-- **Reviewer** (`.agents/reviewer.md`) — verifies each feature against acceptance criteria before it is marked complete
+- **Leader** (`.agents/leader.md`) — orchestrates, picks next task, writes specs/plans/tasks, never writes code
+- **Implementer** (`.agents/implementer.md`) — executes tasks from `tasks.md` one at a time
+- **Reviewer** (`.agents/reviewer.md`) — verifies each feature against `spec.md` success criteria before marking complete
 
 ### State files
 - `current.md` — single in-progress task (IDLE when nothing is running)
