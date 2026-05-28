@@ -20,7 +20,7 @@ export class EmployeeAttendanceComponent {
   private readonly authService = inject(AuthService);
   private readonly destroyRef = inject(DestroyRef);
 
-  private readonly employeeId = this.authService.currentUser()?.employeeId ?? 'EMP-001';
+  private readonly employeeId = this.authService.currentUser()?.id ?? 'EMP-001';
 
   currentTime = signal(new Date());
 
@@ -30,7 +30,9 @@ export class EmployeeAttendanceComponent {
 
   hasOpenSession = computed(() => {
     const todayStr = new Date().toISOString().slice(0, 10);
-    return this.allLogs().some(l => l.date === todayStr && l.clockOut === null);
+    return this.allLogs().some(
+      l => l.employeeId === this.employeeId && l.date === todayStr && l.clockOut === null
+    );
   });
 
   todayHoursLabel = computed(() => {

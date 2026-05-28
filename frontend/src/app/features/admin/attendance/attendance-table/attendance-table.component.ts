@@ -36,4 +36,16 @@ export class AttendanceTableComponent {
   formatHours(h: number | null): string {
     return h !== null ? `${h}h` : '—';
   }
+
+  formatTime(iso: string | null): string {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  formatDate(iso: string | null): string {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  }
 }

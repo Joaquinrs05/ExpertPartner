@@ -25,32 +25,34 @@
           </td>
           <td class="cell-muted">{{ row.employeeId }}</td>
           <td><app-badge [type]="badgeType(row.status)" /></td>
-          <td>{{ row.clockIn ?? '—' }}</td>
-          <td>{{ row.clockOut ?? '—' }}</td>
+          <td>{{ formatTime(row.clockIn) }}</td>
+          <td>{{ formatTime(row.clockOut) }}</td>
           <td>{{ formatHours(row.totalHours) }}</td>
         </tr>
         @if (isExpanded(row.employeeId)) {
           <tr class="history-row">
             <td colspan="6">
               <div class="week-history">
-                <p class="week-title">Historial semanal</p>
+                <p class="week-title">Sesiones del día</p>
                 <table class="week-table">
                   <thead>
                     <tr>
-                      <th>Fecha</th>
+                      <th>#</th>
                       <th>Entrada</th>
                       <th>Salida</th>
                       <th>Total</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @for (day of row.weekHistory; track day.date) {
+                    @for (session of row.weekHistory; track $index) {
                       <tr>
-                        <td>{{ day.date }}</td>
-                        <td>{{ day.clockIn ?? '—' }}</td>
-                        <td>{{ day.clockOut ?? '—' }}</td>
-                        <td>{{ formatHours(day.totalHours) }}</td>
+                        <td class="cell-muted">{{ $index + 1 }}</td>
+                        <td>{{ formatTime(session.clockIn) }}</td>
+                        <td>{{ formatTime(session.clockOut) }}</td>
+                        <td>{{ formatHours(session.totalHours) }}</td>
                       </tr>
+                    } @empty {
+                      <tr><td colspan="4" class="cell-muted">Sin sesiones registradas.</td></tr>
                     }
                   </tbody>
                 </table>
