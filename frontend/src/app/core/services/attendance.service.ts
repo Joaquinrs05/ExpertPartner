@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, NgZone, inject } from '@angular/core';
 import { BehaviorSubject, Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AttendanceLog, EmployeeAttendanceRow } from '@core/models/attendance.model';
@@ -9,6 +9,7 @@ const toDateStr = (d: Date): string => d.toISOString().slice(0, 10);
 @Injectable({ providedIn: 'root' })
 export class AttendanceService {
   private readonly supabase = inject(SupabaseService).client;
+  private readonly zone = inject(NgZone);
   private readonly _logs = new BehaviorSubject<AttendanceLog[]>([]);
   readonly logs$ = this._logs.asObservable();
 
@@ -28,7 +29,7 @@ export class AttendanceService {
         .order('clock_in', { ascending: false })
     ).pipe(
       map(({ data }) => (data ?? []).map(row => this.mapRow(row)))
-    ).subscribe(logs => this._logs.next(logs));
+    ).subscribe(logs => this.zone.run(() => this._logs.next(logs)));
   }
 
   clockIn(employeeId: string): void {
@@ -49,7 +50,7 @@ export class AttendanceService {
     ).pipe(
       map(({ data }) => data ? this.mapRow(data as Record<string, unknown>) : null)
     ).subscribe(log => {
-      if (log) this._logs.next([log, ...this._logs.getValue()]);
+      if (log) this.zone.run(() => this._logs.next([log, ...this._logs.getValue()]));
     });
   }
 
@@ -70,7 +71,7 @@ export class AttendanceService {
       map(({ data }) => data ? this.mapRow(data as Record<string, unknown>) : null)
     ).subscribe(updated => {
       if (updated) {
-        this._logs.next(current.map(l => l.id === updated.id ? updated : l));
+        this.zone.run(() => this._logs.next(current.map(l => l.id === updated.id ? updated : l)));
       }
     });
   }
@@ -148,6 +149,10 @@ export class AttendanceService {
             return sum + ms / 3600000;
           }, 0);
 
+          const status = hasOpenSession
+            ? 'clocked-in'
+            : totalHours >= 8 ? 'completed' : 'clocked-in';
+
           const sessions = profileLogs.map(l => {
             const hasOut = !!l['clock_out'];
             const sessionMs = hasOut
@@ -164,7 +169,7 @@ export class AttendanceService {
           rows.push({
             employeeId: empId,
             name,
-            status: hasOpenSession ? 'clocked-in' : 'completed',
+            status,
             clockIn: firstIn,
             clockOut: lastOut,
             totalHours: Math.round(totalHours * 10) / 10,
