@@ -144,7 +144,8 @@
 }
 
 .th-actions {
-  text-align: right;
+  width: 96px;
+  text-align: left;
 }
 
 .empty-row {

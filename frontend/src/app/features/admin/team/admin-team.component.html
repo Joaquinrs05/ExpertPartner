@@ -41,11 +41,15 @@
       />
     </div>
     <select class="filter-select" [value]="selectedRole()" (change)="onRoleChange($event)">
-      <option value="">All Roles</option>
-      <option value="Senior Consultant">Senior Consultant</option>
-      <option value="Associate">Associate</option>
-      <option value="Manager">Manager</option>
-      <option value="Director">Director</option>
+      <option value="">Todos los roles</option>
+      <option value="Jefe de Obra">Jefe de Obra</option>
+      <option value="Aparejador">Aparejador</option>
+      <option value="Encargado">Encargado</option>
+      <option value="Oficial">Oficial</option>
+      <option value="Peón">Peón</option>
+      <option value="Administrativo">Administrativo</option>
+      <option value="Técnico PRL">Técnico PRL</option>
+      <option value="Project Manager">Project Manager</option>
     </select>
     <select class="filter-select" [value]="selectedStatus()" (change)="onStatusChange($event)">
       <option value="">All Statuses</option>
@@ -63,13 +67,13 @@
             <th class="th-consultant">{{ 'team.columns.name' | translate }}</th>
             <th>{{ 'team.columns.role' | translate }}</th>
             <th>{{ 'team.columns.status' | translate }}</th>
-            <th>EOM Status</th>
+            <th>Obra asignada</th>
             <th class="th-actions">{{ 'team.columns.actions' | translate }}</th>
           </tr>
         </thead>
         <tbody>
           @for (consultant of paginatedConsultants(); track consultant.id) {
-            <app-consultant-row [consultant]="consultant" />
+            <app-consultant-row [consultant]="consultant" (edit)="openEditModal($event)" />
           } @empty {
             <tr>
               <td class="empty-row" colspan="5">{{ 'common.noResults' | translate }}</td>
@@ -96,7 +100,7 @@
   <div class="modal-backdrop" (click)="closeModal()"></div>
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-header">
-      <h2 class="modal-title" id="modal-title">{{ 'team.modal.title' | translate }}</h2>
+      <h2 class="modal-title" id="modal-title">{{ editingId() ? 'Editar trabajador' : ('team.modal.title' | translate) }}</h2>
       <button class="modal-close" type="button" [attr.aria-label]="'common.close' | translate" (click)="closeModal()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
@@ -129,25 +133,15 @@
           <select id="f-role" class="field-input"
             [value]="form().role"
             (change)="updateField('role', $any($event.target).value)">
-            <option value="">Select role</option>
-            <option value="Senior Consultant">Senior Consultant</option>
-            <option value="Associate">Associate</option>
-            <option value="Manager">Manager</option>
-            <option value="Director">Director</option>
-          </select>
-        </div>
-
-        <div class="form-field">
-          <label class="field-label" for="f-level">Level <span class="required">*</span></label>
-          <select id="f-level" class="field-input"
-            [value]="form().level"
-            (change)="updateField('level', $any($event.target).value)">
-            <option value="">Select level</option>
-            <option value="L1 - Junior">L1 - Junior</option>
-            <option value="L2 - Mid">L2 - Mid</option>
-            <option value="L3 - Senior">L3 - Senior</option>
-            <option value="L4 - Lead">L4 - Lead</option>
-            <option value="L5 - Enterprise">L5 - Enterprise</option>
+            <option value="">Selecciona un rol</option>
+            <option value="Jefe de Obra">Jefe de Obra</option>
+            <option value="Aparejador">Aparejador</option>
+            <option value="Encargado">Encargado</option>
+            <option value="Oficial">Oficial</option>
+            <option value="Peón">Peón</option>
+            <option value="Administrativo">Administrativo</option>
+            <option value="Técnico PRL">Técnico PRL</option>
+            <option value="Project Manager">Project Manager</option>
           </select>
         </div>
 
@@ -160,18 +154,6 @@
             <option value="available">{{ 'team.status.active' | translate }}</option>
             <option value="project_assigned">Project Assigned</option>
             <option value="on_leave">{{ 'team.status.leave' | translate }}</option>
-          </select>
-        </div>
-
-        <div class="form-field">
-          <label class="field-label" for="f-eom">EOM Status <span class="required">*</span></label>
-          <select id="f-eom" class="field-input"
-            [value]="form().eomStatus"
-            (change)="updateField('eomStatus', $any($event.target).value)">
-            <option value="">Select EOM status</option>
-            <option value="approved">Approved</option>
-            <option value="timesheets_pending">Timesheets Pending</option>
-            <option value="awaiting_review">Awaiting Review</option>
           </select>
         </div>
 

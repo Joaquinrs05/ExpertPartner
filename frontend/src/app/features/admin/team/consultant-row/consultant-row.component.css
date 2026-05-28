@@ -2,14 +2,23 @@
   display: table-row;
 }
 
-.consultant-row td {
+:host td {
   padding: var(--space-sm) var(--space-md);
   border-bottom: 1px solid var(--color-border);
   vertical-align: middle;
 }
 
-.consultant-row:hover td {
+:host(:hover) td {
   background: var(--color-row-hover);
+}
+
+.cell-empty {
+  color: var(--color-muted);
+}
+
+.col-project {
+  font-size: 14px;
+  color: var(--color-muted);
 }
 
 .consultant-info {
@@ -54,13 +63,12 @@
 }
 
 .col-actions {
-  text-align: right;
+  width: 96px;
 }
 
 .action-buttons {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   gap: var(--space-xs);
 }
 

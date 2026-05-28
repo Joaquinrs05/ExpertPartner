@@ -22,7 +22,7 @@ interface EmployeeProfile {
 export class ProfileCardComponent {
   readonly employee: EmployeeProfile = {
     name: 'Sarah Johnson',
-    role: 'Senior Consultant',
+    role: 'Jefe de Obra',
     employeeId: 'CNS-0042',
     joinedDate: '2022-03-15',
     baseOffice: 'Madrid, Spain',

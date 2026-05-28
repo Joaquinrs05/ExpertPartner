@@ -21,9 +21,7 @@ interface NewConsultantForm {
   fullName: string;
   employeeId: string;
   role: ConsultantRole | '';
-  level: string;
   availability: Consultant['availability'] | '';
-  eomStatus: Consultant['eomStatus'] | '';
   currentProject: string;
 }
 
@@ -31,9 +29,7 @@ const EMPTY_FORM: NewConsultantForm = {
   fullName: '',
   employeeId: '',
   role: '',
-  level: '',
   availability: '',
-  eomStatus: '',
   currentProject: '',
 };
 
@@ -64,6 +60,7 @@ export class AdminTeamComponent {
   importMessage = signal('');
 
   showModal = signal(false);
+  editingId = signal<string | null>(null);
   formError = signal('');
   form = signal<NewConsultantForm>({ ...EMPTY_FORM });
 
@@ -154,13 +151,28 @@ export class AdminTeamComponent {
   }
 
   openModal(): void {
+    this.editingId.set(null);
     this.form.set({ ...EMPTY_FORM });
+    this.formError.set('');
+    this.showModal.set(true);
+  }
+
+  openEditModal(consultant: Consultant): void {
+    this.editingId.set(consultant.id);
+    this.form.set({
+      fullName: consultant.fullName,
+      employeeId: consultant.employeeId ?? '',
+      role: consultant.role,
+      availability: consultant.availability,
+      currentProject: consultant.currentProject ?? '',
+    });
     this.formError.set('');
     this.showModal.set(true);
   }
 
   closeModal(): void {
     this.showModal.set(false);
+    this.editingId.set(null);
   }
 
   updateField<K extends keyof NewConsultantForm>(key: K, value: NewConsultantForm[K]): void {
@@ -169,21 +181,25 @@ export class AdminTeamComponent {
 
   submitForm(): void {
     const f = this.form();
-    if (!f.fullName.trim() || !f.employeeId.trim() || !f.role || !f.level || !f.availability || !f.eomStatus) {
-      this.formError.set('Please fill in all required fields.');
+    if (!f.fullName.trim() || !f.role || !f.availability) {
+      this.formError.set('Por favor rellena los campos obligatorios.');
       return;
     }
-    this.teamService.addConsultant({
+    const data = {
       fullName: f.fullName.trim(),
       employeeId: f.employeeId.trim(),
       role: f.role as ConsultantRole,
-      level: f.level,
       availability: f.availability as Consultant['availability'],
-      eomStatus: f.eomStatus as Consultant['eomStatus'],
       currentProject: f.currentProject.trim() || null,
       avatarUrl: null,
       isOnline: false,
-    });
+    };
+    const id = this.editingId();
+    if (id) {
+      this.teamService.updateConsultant(id, data);
+    } else {
+      this.teamService.addConsultant(data);
+    }
     this.closeModal();
   }
 }
