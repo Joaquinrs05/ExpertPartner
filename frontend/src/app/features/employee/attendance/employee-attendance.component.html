@@ -7,19 +7,14 @@
       <p class="time-display">{{ currentTime() | date:'HH:mm:ss' }}</p>
       <p class="date-sub">{{ currentTime() | date:'EEEE, MMMM d' }}</p>
 
-      @if (!hasTodayLog()) {
-        <button class="btn-primary btn-cta" (click)="onClockIn()" [disabled]="hasOpenSession()">
-          ⊙ {{ 'attendance.clockIn' | translate }}
+      @if (hasOpenSession()) {
+        <button class="btn-secondary btn-cta" (click)="onClockOut()">
+          ⊙ {{ 'attendance.clockOut' | translate }}
         </button>
       } @else {
-        <div class="btn-row">
-          <button class="btn-primary" (click)="onClockIn()" [disabled]="hasOpenSession()">
-            {{ 'attendance.clockIn' | translate }}
-          </button>
-          <button class="btn-secondary" (click)="onClockOut()" [disabled]="!hasOpenSession()">
-            {{ 'attendance.clockOut' | translate }}
-          </button>
-        </div>
+        <button class="btn-primary btn-cta" (click)="onClockIn()">
+          ⊙ {{ 'attendance.clockIn' | translate }}
+        </button>
       }
     </div>
 

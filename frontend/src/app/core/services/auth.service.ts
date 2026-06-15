@@ -13,6 +13,10 @@ export class AuthService {
   readonly currentUser = this._currentUser.asReadonly();
   readonly isLoggedIn = computed(() => this._currentUser() !== null);
   readonly role = computed(() => this._currentUser()?.role ?? null);
+  readonly effectiveEmployeeId = computed(() => {
+    const u = this._currentUser();
+    return u?.employeeId ?? u?.id ?? 'EMP-001';
+  });
 
   async login(email: string, password: string): Promise<boolean> {
     const { data, error } = await this.supabase.auth.signInWithPassword({ email, password });

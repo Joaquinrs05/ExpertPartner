@@ -20,20 +20,14 @@ export class EmployeeAttendanceComponent {
   private readonly authService = inject(AuthService);
   private readonly destroyRef = inject(DestroyRef);
 
-  private readonly employeeId = this.authService.currentUser()?.id ?? 'EMP-001';
+  private readonly employeeId = this.authService.effectiveEmployeeId();
 
   currentTime = signal(new Date());
 
   allLogs = toSignal(this.attendanceService.logs$, { initialValue: [] });
   hasTodayLog = toSignal(this.attendanceService.hasTodayLog$(this.employeeId), { initialValue: false });
   weeklyWorked = toSignal(this.attendanceService.getWeeklyHours(this.employeeId), { initialValue: 0 });
-
-  hasOpenSession = computed(() => {
-    const todayStr = new Date().toISOString().slice(0, 10);
-    return this.allLogs().some(
-      l => l.employeeId === this.employeeId && l.date === todayStr && l.clockOut === null
-    );
-  });
+  hasOpenSession = toSignal(this.attendanceService.hasOpenSession$(this.employeeId), { initialValue: false });
 
   todayHoursLabel = computed(() => {
     const todayStr = new Date().toISOString().slice(0, 10);

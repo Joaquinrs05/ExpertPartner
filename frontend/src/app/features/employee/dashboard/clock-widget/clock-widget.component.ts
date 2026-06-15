@@ -24,7 +24,7 @@ export class ClockWidgetComponent {
   private readonly authService = inject(AuthService);
   private readonly destroyRef = inject(DestroyRef);
 
-  private readonly employeeId = this.authService.currentUser()?.employeeId ?? 'EMP-001';
+  private readonly employeeId = this.authService.effectiveEmployeeId();
 
   currentTime = signal(new Date());
   isOnDuty = toSignal(this.attendanceService.hasOpenSession$(this.employeeId), { initialValue: false });
