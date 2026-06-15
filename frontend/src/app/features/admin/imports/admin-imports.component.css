@@ -99,7 +99,7 @@
   transition: background 0.15s;
 }
 
-.nomina-upload-btn:hover { background: #F1F5F9; }
+.nomina-upload-btn:hover { background: var(--color-row-hover); }
 
 .nomina-upload-btn--disabled {
   opacity: 0.5;
@@ -115,23 +115,23 @@
   border-radius: var(--radius-sm);
   font-size: 12px;
   font-weight: 500;
-  background: #D1FAE5;
-  color: #065F46;
-  border: 1px solid #6EE7B7;
+  background: var(--color-toast-success-bg);
+  color: var(--color-toast-success);
+  border: 1px solid var(--color-toast-success-border);
   width: 100%;
   text-align: left;
 }
 
 .nomina-toast--uploading {
-  background: #EFF6FF;
-  color: #1E40AF;
-  border-color: #93C5FD;
+  background: var(--color-toast-info-bg);
+  color: var(--color-toast-info);
+  border-color: var(--color-toast-info-border);
 }
 
 .nomina-toast--error {
   background: var(--color-urgent-bg);
   color: var(--color-urgent);
-  border-color: #FCA5A5;
+  border-color: var(--color-toast-error-border);
 }
 
 .nomina-spinner {
@@ -185,8 +185,8 @@
   align-items: center;
   gap: var(--space-sm);
   padding: 10px var(--space-md);
-  background: #F0FDF4;
-  border: 1px solid #6EE7B7;
+  background: var(--color-result-bg);
+  border: 1px solid var(--color-result-border);
   border-radius: var(--radius-sm);
   color: var(--color-muted);
 }
@@ -298,5 +298,5 @@
 }
 
 .history-dl-btn:hover {
-  background: #D1FAE5;
+  background: var(--color-toast-success-bg);
 }

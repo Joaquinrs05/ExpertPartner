@@ -8,10 +8,25 @@ This project uses a multi-agent workflow. Before doing any work, every agent mus
 2. `specs/constitution.md` — immutable architectural principles (MUST NOT be violated)
 3. `current.md` — what is being worked on right now
 4. `feature_list.json` — full feature list with status and acceptance criteria
-5. `specs/XX-feature-name/spec.md` — user stories, requirements, and success criteria for the feature
-6. `specs/XX-feature-name/plan.md` — technical plan and data model (if it exists)
-7. `specs/XX-feature-name/tasks.md` — ordered task list with parallelism markers
-8. The assigned `skills/XX-name.md` — implementation reference and design details
+5. `specs/features/XX-feature-name.md` — what to build: components, layout, mock data, acceptance criteria
+6. The relevant `skills/` — **how** to build: reusable behavior contracts for the agent
+
+### Skills vs Feature Specs
+
+| File type | Location | Purpose |
+|---|---|---|
+| **Feature spec** | `specs/features/XX-name.md` | What to build for this feature (components, layout, data) |
+| **Skill** | `skills/<skill-name>/SKILL.md` | How the agent behaves when doing a class of task (always applicable) |
+
+**Available skills** — load the relevant ones before implementing:
+
+| Skill | Trigger |
+|---|---|
+| `skills/angular-component/SKILL.md` | Creating any component, pipe, or directive |
+| `skills/css-tokens/SKILL.md` | Writing any CSS |
+| `skills/mock-service/SKILL.md` | Creating or modifying a service |
+| `skills/table-component/SKILL.md` | Building any data table |
+| `skills/badge-component/SKILL.md` | Rendering any status badge or pill |
 
 ### Spec-Driven Development
 
@@ -251,19 +266,22 @@ Original designs are in `stitch_consultancy_operations_hub/`. Each folder contai
 
 ---
 
-## Build Order (Skills)
+## Build Order (Feature Specs)
 
-| # | Skill file | What it builds |
+| # | Spec file | What it builds |
 |---|---|---|
-| 01 | `skills/01-setup-angular.md` | Angular project init, folder structure, global CSS tokens |
-| 02 | `skills/02-design-tokens.md` | Typography, spacing, color tokens wired up |
-| 03 | `skills/03-layout-sidebar.md` | Admin shell, Employee shell, Sidebar, Topbar |
-| 04 | `skills/04-auth-login.md` | Login screen, mock auth service, guards |
-| 05 | `skills/05-admin-dashboard.md` | KPI cards, Activity Monitor, Express Inbox |
-| 06 | `skills/06-employee-dashboard.md` | Clock widget, Weekly Hours, Profile card |
-| 07 | `skills/07-attendance.md` | Attendance screen (both variants), Recent Activity table |
-| 08 | `skills/08-filtered-emails.md` | Email list, category badges, star toggle |
-| 09 | `skills/09-team-management.md` | Consultant table, filters, pagination |
+| 01 | `specs/features/01-setup-angular.md` | Angular project init, folder structure, global CSS tokens |
+| 02 | `specs/features/02-design-tokens.md` | Typography, spacing, color tokens wired up |
+| 03 | `specs/features/03-layout-sidebar.md` | Admin shell, Employee shell, Sidebar, Topbar |
+| 04 | `specs/features/04-auth-login.md` | Login screen, mock auth service, guards |
+| 05 | `specs/features/05-admin-dashboard.md` | KPI cards, Activity Monitor, Express Inbox |
+| 06 | `specs/features/06-employee-dashboard.md` | Clock widget, Weekly Hours, Profile card |
+| 07 | `specs/features/07-attendance.md` | Attendance screen (both variants), Recent Activity table |
+| 08 | `specs/features/08-filtered-emails.md` | Email list, category badges, star toggle |
+| 09 | `specs/features/09-team-management.md` | Consultant table, filters, pagination |
+| 10 | `specs/features/10-admin-attendance.md` | Admin attendance control panel |
+| 11 | `specs/features/11-team-onboarding-tabs.md` | Team onboarding tabs (pending) |
+| 12 | `specs/features/12-email-n8n-integration.md` | Email integration n8n → Supabase |
 
 ---
 

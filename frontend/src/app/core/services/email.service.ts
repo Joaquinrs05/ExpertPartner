@@ -3,6 +3,7 @@ import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SupabaseService } from './supabase.service';
 import { Email } from '@core/models/email.model';
+import { EmailRow } from '@core/models/supabase-rows.model';
 
 @Injectable({ providedIn: 'root' })
 export class EmailService {
@@ -15,7 +16,7 @@ export class EmailService {
         .select('*')
         .order('received_at', { ascending: false })
     ).pipe(
-      map(({ data }) => (data ?? []).map(row => this.mapRow(row)))
+      map(({ data }) => (data as EmailRow[] ?? []).map(row => this.mapRow(row)))
     );
   }
 
@@ -31,17 +32,17 @@ export class EmailService {
     ).pipe(map(() => void 0));
   }
 
-  private mapRow(row: Record<string, unknown>): Email {
+  private mapRow(row: EmailRow): Email {
     return {
-      id: row['id'] as string,
-      sender: this.parseSender(row['from_address']),
-      subject: row['subject'] as string,
-      preview: row['preview'] as string,
-      category: row['category'] as Email['category'],
-      receivedAt: new Date(row['received_at'] as string),
-      isRead: row['is_read'] as boolean,
-      isStarred: row['is_starred'] as boolean,
-      body: row['body'] as string | undefined,
+      id: row.id,
+      sender: this.parseSender(row.from_address),
+      subject: row.subject,
+      preview: row.preview,
+      category: row.category,
+      receivedAt: new Date(row.received_at),
+      isRead: row.is_read,
+      isStarred: row.is_starred,
+      body: row.body,
     };
   }
 

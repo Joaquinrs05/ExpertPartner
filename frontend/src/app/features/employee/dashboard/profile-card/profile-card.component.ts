@@ -2,14 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AvatarComponent } from '../../../../shared/components/avatar/avatar.component';
-
-interface EmployeeProfile {
-  name: string;
-  role: string;
-  employeeId: string;
-  joinedDate: string;
-  baseOffice: string;
-}
+import { EmployeeProfile } from '@core/models/employee-profile.model';
 
 @Component({
   selector: 'app-profile-card',

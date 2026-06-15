@@ -1,7 +1,15 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx ng *)"
+      "Bash(npx ng *)",
+      "Bash(gh repo *)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\joaqu\\\\Documents\\\\Master\\\\Desarrollo software\\\\ExpertPartner\\\\skills\\\\angular-component\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\joaqu\\\\Documents\\\\Master\\\\Desarrollo software\\\\ExpertPartner\\\\skills\\\\css-tokens\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\joaqu\\\\Documents\\\\Master\\\\Desarrollo software\\\\ExpertPartner\\\\skills\\\\mock-service\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\joaqu\\\\Documents\\\\Master\\\\Desarrollo software\\\\ExpertPartner\\\\skills\\\\table-component\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\joaqu\\\\Documents\\\\Master\\\\Desarrollo software\\\\ExpertPartner\\\\skills\\\\badge-component\")"
     ]
   }
 }

@@ -2,6 +2,7 @@ import { Injectable, NgZone, inject } from '@angular/core';
 import { BehaviorSubject, from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Consultant, ConsultantRole } from '@core/models/consultant.model';
+import { ConsultantRow } from '@core/models/supabase-rows.model';
 import { SupabaseService } from './supabase.service';
 
 @Injectable({ providedIn: 'root' })
@@ -11,9 +12,7 @@ export class TeamService {
   private readonly _consultants = new BehaviorSubject<Consultant[]>([]);
   readonly consultants$ = this._consultants.asObservable();
 
-  constructor() {
-    this.load();
-  }
+  private readonly _init = this.load();
 
   reload(): void {
     this.load();
@@ -26,7 +25,7 @@ export class TeamService {
         .select('*')
         .order('full_name', { ascending: true })
     ).pipe(
-      map(({ data }) => (data ?? []).map(row => this.mapRow(row)))
+      map(({ data }) => (data as ConsultantRow[] ?? []).map(row => this.mapRow(row)))
     ).subscribe(consultants => this.zone.run(() => this._consultants.next(consultants)));
   }
 
@@ -58,7 +57,7 @@ export class TeamService {
         current_project: consultant.currentProject,
       }).select().single()
     ).pipe(
-      map(({ data }) => data ? this.mapRow(data as Record<string, unknown>) : null)
+      map(({ data }) => data ? this.mapRow(data as ConsultantRow) : null)
     ).subscribe(newConsultant => {
       if (newConsultant) {
         this._consultants.next([...this._consultants.getValue(), newConsultant]);
@@ -66,16 +65,16 @@ export class TeamService {
     });
   }
 
-  private mapRow(row: Record<string, unknown>): Consultant {
+  private mapRow(row: ConsultantRow): Consultant {
     return {
-      id: row['id'] as string,
-      employeeId: row['employee_id'] as string,
-      fullName: row['full_name'] as string,
-      role: row['role'] as ConsultantRole,
-      avatarUrl: row['avatar_url'] as string | null,
-      isOnline: row['is_online'] as boolean,
-      availability: row['availability'] as Consultant['availability'],
-      currentProject: row['current_project'] as string | null,
+      id: row.id,
+      employeeId: row.employee_id,
+      fullName: row.full_name,
+      role: row.role as ConsultantRole,
+      avatarUrl: row.avatar_url,
+      isOnline: row.is_online,
+      availability: row.availability,
+      currentProject: row.current_project,
     };
   }
 }

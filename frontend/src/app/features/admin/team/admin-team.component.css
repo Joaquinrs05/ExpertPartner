@@ -238,24 +238,24 @@
   align-items: center;
   gap: var(--space-sm);
   padding: var(--space-sm) var(--space-md);
-  background: #D1FAE5;
-  color: #065F46;
-  border: 1px solid #6EE7B7;
+  background: var(--color-toast-success-bg);
+  color: var(--color-toast-success);
+  border: 1px solid var(--color-toast-success-border);
   border-radius: var(--radius-md);
   font-size: 14px;
   font-weight: 500;
 }
 
 .import-toast--uploading {
-  background: #EFF6FF;
-  color: #1E40AF;
-  border-color: #93C5FD;
+  background: var(--color-toast-info-bg);
+  color: var(--color-toast-info);
+  border-color: var(--color-toast-info-border);
 }
 
 .import-toast--error {
   background: var(--color-urgent-bg);
   color: var(--color-urgent);
-  border-color: #FCA5A5;
+  border-color: var(--color-toast-error-border);
 }
 
 .import-spinner {
@@ -276,7 +276,7 @@
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.4);
+  background: var(--color-backdrop);
   z-index: 50;
 }
 
@@ -290,7 +290,7 @@
   background: var(--color-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  box-shadow: 0 16px 48px rgba(15, 23, 42, 0.18);
+  box-shadow: var(--shadow-modal);
   width: 90%;
   max-width: 560px;
   max-height: 90vh;

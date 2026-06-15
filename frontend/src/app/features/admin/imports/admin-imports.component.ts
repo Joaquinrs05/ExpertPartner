@@ -3,24 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SupabaseService } from '@core/services/supabase.service';
+import { N8nResponse, HistoryEntry } from '@core/models/import.model';
 
 type UploadState = 'idle' | 'uploading' | 'success' | 'error';
 
 const WEBHOOK_640 = '/webhook/Nomina640';
 const WEBHOOK_642 = '/webhook/Nomina642';
-
-interface N8nResponse {
-  url_640?: string;
-  url_642?: string;
-}
-
-interface HistoryEntry {
-  id: string;
-  original_name: string;
-  uploaded_at: string;
-  url_640: string | null;
-  url_642: string | null;
-}
 
 @Component({
   selector: 'app-admin-imports',

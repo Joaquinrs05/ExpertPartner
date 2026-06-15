@@ -12,18 +12,11 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { TeamService } from '@core/services/team.service';
 import { AuthService } from '@core/services/auth.service';
 import { Consultant, ConsultantRole } from '@core/models/consultant.model';
+import { NewConsultantForm } from '@core/models/new-consultant-form.model';
 import { ConsultantRowComponent } from './consultant-row/consultant-row.component';
 
 const EXCEL_WEBHOOK = 'https://jrsgrowtth.ddns.net/webhook-test/gestor-altas-upload';
 type ImportState = 'idle' | 'uploading' | 'success' | 'error';
-
-interface NewConsultantForm {
-  fullName: string;
-  employeeId: string;
-  role: ConsultantRole | '';
-  availability: Consultant['availability'] | '';
-  currentProject: string;
-}
 
 const EMPTY_FORM: NewConsultantForm = {
   fullName: '',

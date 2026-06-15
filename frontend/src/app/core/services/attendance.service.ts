@@ -2,6 +2,7 @@ import { Injectable, NgZone, inject } from '@angular/core';
 import { BehaviorSubject, Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AttendanceLog, EmployeeAttendanceRow } from '@core/models/attendance.model';
+import { AttendanceLogRow, ProfileRow } from '@core/models/supabase-rows.model';
 import { SupabaseService } from './supabase.service';
 
 const toDateStr = (d: Date): string => d.toISOString().slice(0, 10);
@@ -13,9 +14,7 @@ export class AttendanceService {
   private readonly _logs = new BehaviorSubject<AttendanceLog[]>([]);
   readonly logs$ = this._logs.asObservable();
 
-  constructor() {
-    this.load();
-  }
+  private readonly _init = this.load();
 
   reload(): void {
     this.load();
@@ -28,7 +27,7 @@ export class AttendanceService {
         .select('*')
         .order('clock_in', { ascending: false })
     ).pipe(
-      map(({ data }) => (data ?? []).map(row => this.mapRow(row)))
+      map(({ data }) => (data as AttendanceLogRow[] ?? []).map(row => this.mapRow(row)))
     ).subscribe(logs => this.zone.run(() => this._logs.next(logs)));
   }
 
@@ -48,7 +47,7 @@ export class AttendanceService {
         .select()
         .single()
     ).pipe(
-      map(({ data }) => data ? this.mapRow(data as Record<string, unknown>) : null)
+      map(({ data }) => data ? this.mapRow(data as AttendanceLogRow) : null)
     ).subscribe(log => {
       if (log) this.zone.run(() => this._logs.next([log, ...this._logs.getValue()]));
     });
@@ -68,7 +67,7 @@ export class AttendanceService {
         .select()
         .single()
     ).pipe(
-      map(({ data }) => data ? this.mapRow(data as Record<string, unknown>) : null)
+      map(({ data }) => data ? this.mapRow(data as AttendanceLogRow) : null)
     ).subscribe(updated => {
       if (updated) {
         this.zone.run(() => this._logs.next(current.map(l => l.id === updated.id ? updated : l)));
@@ -124,28 +123,28 @@ export class AttendanceService {
       ])
     ).pipe(
       map(([profilesResult, logsResult]) => {
-        const profiles = profilesResult.data ?? [];
-        const logs = logsResult.data ?? [];
+        const profiles = (profilesResult.data ?? []) as ProfileRow[];
+        const logs = (logsResult.data ?? []) as AttendanceLogRow[];
         const rows: EmployeeAttendanceRow[] = [];
 
         for (const profile of profiles) {
-          const empId = (profile['employee_id'] as string) ?? (profile['id'] as string);
-          const name = profile['name'] as string;
-          const profileLogs = logs.filter(l => l['employee_id'] === (profile['employee_id'] ?? profile['id']));
+          const empId = profile.employee_id ?? profile.id;
+          const { name } = profile;
+          const profileLogs = logs.filter(l => l.employee_id === (profile.employee_id ?? profile.id));
 
           if (profileLogs.length === 0) {
             rows.push({ employeeId: empId, name, status: 'not-clocked', clockIn: null, clockOut: null, totalHours: null, weekHistory: [] });
             continue;
           }
 
-          const hasOpenSession = profileLogs.some(l => !l['clock_out']);
-          const firstIn = profileLogs[profileLogs.length - 1]['clock_in'] as string;
-          const lastCompletedLog = [...profileLogs].reverse().find(l => !!l['clock_out']);
-          const lastOut = lastCompletedLog ? (lastCompletedLog['clock_out'] as string) : null;
+          const hasOpenSession = profileLogs.some(l => !l.clock_out);
+          const firstIn = profileLogs[profileLogs.length - 1].clock_in;
+          const lastCompletedLog = [...profileLogs].reverse().find(l => !!l.clock_out);
+          const lastOut = lastCompletedLog ? lastCompletedLog.clock_out : null;
 
           const totalHours = profileLogs.reduce((sum, l) => {
-            if (!l['clock_out']) return sum;
-            const ms = new Date(l['clock_out'] as string).getTime() - new Date(l['clock_in'] as string).getTime();
+            if (!l.clock_out) return sum;
+            const ms = new Date(l.clock_out).getTime() - new Date(l.clock_in).getTime();
             return sum + ms / 3600000;
           }, 0);
 
@@ -154,14 +153,14 @@ export class AttendanceService {
             : totalHours >= 8 ? 'completed' : 'clocked-in';
 
           const sessions = profileLogs.map(l => {
-            const hasOut = !!l['clock_out'];
+            const hasOut = !!l.clock_out;
             const sessionMs = hasOut
-              ? new Date(l['clock_out'] as string).getTime() - new Date(l['clock_in'] as string).getTime()
+              ? new Date(l.clock_out!).getTime() - new Date(l.clock_in).getTime()
               : null;
             return {
-              date: l['date'] as string,
-              clockIn: l['clock_in'] as string,
-              clockOut: hasOut ? (l['clock_out'] as string) : null,
+              date: l.date,
+              clockIn: l.clock_in,
+              clockOut: hasOut ? l.clock_out : null,
               totalHours: sessionMs !== null ? Math.round((sessionMs / 3600000) * 10) / 10 : null,
             };
           });
@@ -182,15 +181,15 @@ export class AttendanceService {
     );
   }
 
-  private mapRow(row: Record<string, unknown>): AttendanceLog {
+  private mapRow(row: AttendanceLogRow): AttendanceLog {
     return {
-      id: row['id'] as string,
-      employeeId: row['employee_id'] as string,
-      date: row['date'] as string,
-      clockIn: new Date(row['clock_in'] as string),
-      clockOut: row['clock_out'] ? new Date(row['clock_out'] as string) : null,
-      breakMinutes: (row['break_minutes'] as number) ?? 0,
-      status: row['status'] as AttendanceLog['status'],
+      id: row.id,
+      employeeId: row.employee_id,
+      date: row.date,
+      clockIn: new Date(row.clock_in),
+      clockOut: row.clock_out ? new Date(row.clock_out) : null,
+      breakMinutes: row.break_minutes ?? 0,
+      status: row.status,
     };
   }
 }

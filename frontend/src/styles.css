@@ -71,6 +71,26 @@
   /* Amber (timesheets-pending badge) */
   --color-amber: #d97706;
   --color-amber-bg: #fef3c7;
+
+  /* Toast / state feedback */
+  --color-toast-success: #065F46;
+  --color-toast-success-bg: #D1FAE5;
+  --color-toast-success-border: #6EE7B7;
+  --color-toast-info: #1E40AF;
+  --color-toast-info-bg: #EFF6FF;
+  --color-toast-info-border: #93C5FD;
+  --color-toast-error-border: #FCA5A5;
+
+  /* Result / success highlight */
+  --color-result-bg: #F0FDF4;
+  --color-result-border: #6EE7B7;
+
+  /* Overlays */
+  --color-backdrop: rgba(15, 23, 42, 0.4);
+  --color-backdrop-light: rgba(15, 23, 42, 0.25);
+  --shadow-modal: 0 16px 48px rgba(15, 23, 42, 0.18);
+  --shadow-dropdown: 0 4px 12px rgba(15, 23, 42, 0.12);
+  --shadow-btn: 0 2px 6px rgba(15, 23, 42, 0.2);
 }
 
 /* ============================================================
